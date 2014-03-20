@@ -7,7 +7,7 @@
 using namespace gameEngine;
 
 Spawner::Spawner() : Sprite(40, 40, 30, 30) {
-	image = SDL_DisplayFormat(SDL_LoadBMP("C:/users/Jonathan/Pictures/Prog3 spel/tower.bmp"));
+	image = SDL_DisplayFormat(SDL_LoadBMP("../images/tower.bmp"));
 	Uint32 transp = *(Uint32*)image->pixels;
 	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
 }
