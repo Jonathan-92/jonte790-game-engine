@@ -12,7 +12,7 @@ int Enemy::health = 10;
 
 Enemy::Enemy(int x, int y, int w, int h):Sprite(x,y,w,h)
 {
-	image = SDL_DisplayFormat(SDL_LoadBMP("C:/users/Jonathan/Pictures/Prog3 spel/enemy2.bmp"));	// fixa PNG
+	image = SDL_DisplayFormat(SDL_LoadBMP("../images/enemy2.bmp"));	// fixa PNG
 	Uint32 transp = *(Uint32*)image->pixels;
 	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
 }
