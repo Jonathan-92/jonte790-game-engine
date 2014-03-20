@@ -6,7 +6,7 @@ using namespace gameEngine;
 
 Projectile::Projectile(int x, int y, int w, int h) : Sprite(x, y, w, h)
 {
-	image = SDL_DisplayFormat(SDL_LoadBMP("C:/users/Jonathan/Pictures/Prog3 spel/projectile.bmp"));
+	image = SDL_DisplayFormat(SDL_LoadBMP("../images/projectile.bmp"));
 	Uint32 transp = *(Uint32*)image->pixels;
 	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
 	towerX = x;
