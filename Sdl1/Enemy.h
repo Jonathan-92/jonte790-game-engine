@@ -15,6 +15,4 @@ private:
 	static int health;
 };
 
-
-
 #endif
