@@ -1,7 +1,6 @@
 #include <SDL.h>
 #include "GameEngine.h"
 #include "Globals.h"
-#include "Etikett.h"
 #include "Enemy.h"
 #include "G_Button.h"
 #include "Spawner.h"

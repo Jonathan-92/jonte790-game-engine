@@ -30,7 +30,7 @@ void Enemy::checkIfHit() {
 	for (std::vector<Projectile*>::iterator it = Spawner::projectiles.begin(); it != 
 					Spawner::projectiles.end(); it++) {
 			if ((*it)->rect.overlaps(rect)) {
-				ga.remove(this);
+				ga.remove(*it);
 			}
 		}
 }
