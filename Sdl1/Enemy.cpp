@@ -5,16 +5,17 @@
 #include "Projectile.h"
 #include "Spawner.h"
 #include "GameEngine.h"
+#include <iostream>
 
 using namespace gameEngine;
 
-int Enemy::health = 10;
 
 Enemy::Enemy(int x, int y, int w, int h):Sprite(x,y,w,h)
 {
 	image = SDL_DisplayFormat(SDL_LoadBMP("../images/enemy2.bmp"));	// fixa PNG
 	Uint32 transp = *(Uint32*)image->pixels;
 	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
+	health = 10;
 }
 
 void Enemy::draw() {
@@ -24,6 +25,10 @@ void Enemy::draw() {
 void Enemy::tick() {
 	rect.y++;
 	checkIfHit();
+
+	if (rect.y < 0) {
+		delete this;
+	}
 }
 
 void Enemy::checkIfHit() {
@@ -31,12 +36,14 @@ void Enemy::checkIfHit() {
 					Spawner::projectiles.end(); it++) {
 			if ((*it)->rect.overlaps(rect)) {
 				ga.remove(*it);
+
+				if(--health == 0) {
+					ga.remove(this);
+					std::cout << "jag dör nu";
+					return;
+				}
 			}
 		}
-}
-
-void Enemy::upHealth(int h) {
-	health += h;
 }
 
 Enemy::~Enemy(void)

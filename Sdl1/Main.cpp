@@ -13,7 +13,6 @@ void quit() {
 }
 
 void start() {
-	Enemy::upHealth(5);
 	Spawner::start();
 }
 

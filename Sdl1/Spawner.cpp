@@ -35,11 +35,11 @@ void Spawner::enableBuilding() {
 
 void Spawner::mouseDown(int x, int y) {
 	if (buildingTower && (x < 350 || x > 500) && y < 650) {
-		std::list<Sprite*> sprites = ga.getSprites();
+		std::vector<Sprite*> sprites = ga.getSprites();
 		Tower* t = new Tower(x, y, 32, 32);
 
 		// If the new tower overlaps another tower, don't place it
-		for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
+		for (std::vector<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
 			if (dynamic_cast<Tower*>(*it) && (*it)->rect.overlaps(t->rect)) {
 				return;
 			}

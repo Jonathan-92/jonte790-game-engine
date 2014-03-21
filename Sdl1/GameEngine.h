@@ -1,7 +1,7 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 #include "Sprite.h"
-#include <list>
+#include <vector>
 
 namespace gameEngine {
 
@@ -15,11 +15,11 @@ namespace gameEngine {
 		void setBackground(const char* path);
 		void setVideoMode(int w, int h);
 		void setFps(int i);
-		std::list<Sprite*> getSprites() const;
+		std::vector<Sprite*> getSprites() const;
 	private:
 		int fps;
 		const char* bgPath;
-		std::list<Sprite*> sprites;
+		std::vector<Sprite*> sprites;
 		void forAll(void (Sprite::*membrPtr)(int, int), int x, int y);
 	};
 

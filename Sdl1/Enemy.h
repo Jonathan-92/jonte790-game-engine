@@ -12,7 +12,7 @@ public:
 	static void upHealth(int h);
 	void checkIfHit();
 private:
-	static int health;
+	int health;
 };
 
 #endif
