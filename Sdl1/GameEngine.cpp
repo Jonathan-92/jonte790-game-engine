@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <string>
 #include <iostream>
+#include "Enemy.h"
 
 namespace gameEngine {
 
@@ -79,7 +80,9 @@ namespace gameEngine {
 	}
 
 	void GameEngine::remove(Sprite* sprite) {
-		itTick++;
+		if (dynamic_cast<Enemy*>(sprite) != NULL) {
+			itTick++;
+		}
 
 		sprites.remove(sprite);
 	}
