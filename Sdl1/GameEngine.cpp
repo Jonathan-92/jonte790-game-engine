@@ -20,7 +20,7 @@ namespace gameEngine {
 		fps = i;
 	}
 
-	std::vector<Sprite*> GameEngine::getSprites() const {
+	std::list<Sprite*> GameEngine::getSprites() const {
 		return sprites;
 	}
 
@@ -37,7 +37,7 @@ namespace gameEngine {
 			nextTick = SDL_GetTicks() + tickInterval;
 			SDL_BlitSurface(background, NULL, sys.screen, NULL);
 
-			for (std::vector<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
+			for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
 				(*it)->draw();
 			}
 
@@ -57,8 +57,8 @@ namespace gameEngine {
 
 			}
 
-			for (std::vector<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
-				(*it)->tick();
+			for (itTick = sprites.begin(); itTick != sprites.end(); ++itTick) {
+				(*itTick)->tick();
 			}
 
 			delay = nextTick - SDL_GetTicks();
@@ -69,7 +69,7 @@ namespace gameEngine {
 	}
 	
 	void GameEngine::forAll(void (Sprite::*membrPtr)(int, int), int x, int y) {
-		for (std::vector<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
+		for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
 			((*it)->*membrPtr)(x, y);
 		}
 	}
@@ -79,9 +79,11 @@ namespace gameEngine {
 	}
 
 	void GameEngine::remove(Sprite* sprite) {
-		/*std::vector<Sprite*>::iterator position = std::find(sprites.begin(), sprites.end(), sprite);
-		if (position != sprites.end())
-			sprites.erase(position);*/
+		if (std::find(sprites.begin(), sprites.end(), sprite) != sprites.end()) {
+			itTick++;
+		}
+
+		sprites.remove(sprite);
 	}
 
 	void GameEngine::setBackground(const char* path) {
@@ -90,7 +92,7 @@ namespace gameEngine {
 
 	GameEngine::~GameEngine(void)
 	{
-		for (std::vector<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
+		for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
 			delete (*it);
 		}
 	}

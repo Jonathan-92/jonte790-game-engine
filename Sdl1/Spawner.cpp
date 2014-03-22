@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Tower.h"
 #include "Globals.h"
+#include <vector>
 
 using namespace gameEngine;
 
@@ -35,11 +36,11 @@ void Spawner::enableBuilding() {
 
 void Spawner::mouseDown(int x, int y) {
 	if (buildingTower && (x < 350 || x > 500) && y < 650) {
-		std::vector<Sprite*> sprites = ga.getSprites();
+		std::list<Sprite*> sprites = ga.getSprites();
 		Tower* t = new Tower(x, y, 32, 32);
 
 		// If the new tower overlaps another tower, don't place it
-		for (std::vector<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
+		for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
 			if (dynamic_cast<Tower*>(*it) && (*it)->rect.overlaps(t->rect)) {
 				return;
 			}
@@ -56,20 +57,25 @@ void Spawner::mouseDown(int x, int y) {
 }
 
 void Spawner::tick() {
-	if (buildingTower) {
+	/*if (buildingTower) {
 		SDL_BlitSurface(image, NULL, sys.screen, &rect);
-	}
+	}*/
 
 	if (started) {
-		Uint32 end = SDL_GetTicks();
-		Uint32 elapsed = end - startTimer;
-
-		// Spawns a new enemy every 5 seconds
-		if (elapsed % 500 == 0) {
-			ga.add(new Enemy(430, 0, 32, 32));
-		}
-
-		if (elapsed > 10000)
-			started = false;
+		ga.add(new Enemy(430, 0, 32, 32));
+		started = false;
 	}
+
+	//if (started) {
+	//	Uint32 end = SDL_GetTicks();
+	//	Uint32 elapsed = end - startTimer;
+
+	//	// Spawns a new enemy every 5 seconds
+	//	if (elapsed % 500 == 0) {
+	//		ga.add(new Enemy(430, 0, 32, 32));
+	//	}
+
+	//	if (elapsed > 10000)
+	//		started = false;
+	//}
 }

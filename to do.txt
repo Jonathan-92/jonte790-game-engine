@@ -10,5 +10,4 @@ Must do:
 - fixa minnesläckage
 - skott
 - Fixa timer i wave spawn eller spawna bara en gubbe
-- byta location på bilderna
 - fixa synlighet på medlemmarna

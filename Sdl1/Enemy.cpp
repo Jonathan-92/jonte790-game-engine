@@ -15,7 +15,7 @@ Enemy::Enemy(int x, int y, int w, int h):Sprite(x,y,w,h)
 	image = SDL_DisplayFormat(SDL_LoadBMP("../images/enemy2.bmp"));	// fixa PNG
 	Uint32 transp = *(Uint32*)image->pixels;
 	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
-	health = 10;
+	health = 1;
 }
 
 void Enemy::draw() {
@@ -32,21 +32,23 @@ void Enemy::tick() {
 }
 
 void Enemy::checkIfHit() {
-	for (std::vector<Projectile*>::iterator it = Spawner::projectiles.begin(); it != 
-					Spawner::projectiles.end(); it++) {
+	std::vector<Projectile*>::iterator it = Spawner::projectiles.begin();
+	while (it != Spawner::projectiles.end()) {
 			if ((*it)->rect.overlaps(rect)) {
 				ga.remove(*it);
+				it = Spawner::projectiles.erase(it);
 
-				if(--health == 0) {
-					ga.remove(this);
-					std::cout << "jag dör nu";
+				if (--health < 1) {
+					delete this;
 					return;
 				}
+			} else {
+				++it;
 			}
 		}
 }
 
 Enemy::~Enemy(void)
 {
-
+	ga.remove(this);
 }
