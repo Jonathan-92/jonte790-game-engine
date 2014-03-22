@@ -79,9 +79,7 @@ namespace gameEngine {
 	}
 
 	void GameEngine::remove(Sprite* sprite) {
-		if (std::find(sprites.begin(), sprites.end(), sprite) != sprites.end()) {
-			itTick++;
-		}
+		itTick++;
 
 		sprites.remove(sprite);
 	}
