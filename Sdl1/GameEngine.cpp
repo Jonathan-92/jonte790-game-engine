@@ -63,6 +63,7 @@ namespace gameEngine {
 			}
 
 			delay = nextTick - SDL_GetTicks();
+
 			if (delay > 0)
 				SDL_Delay(delay);
 
@@ -80,11 +81,7 @@ namespace gameEngine {
 	}
 
 	void GameEngine::remove(Sprite* sprite) {
-		if (dynamic_cast<Enemy*>(sprite) != NULL) {
-			itTick++;
-		}
-
-		sprites.remove(sprite);
+		itTick = sprites.erase(std::find(sprites.begin(), sprites.end(), sprite));
 	}
 
 	void GameEngine::setBackground(const char* path) {
@@ -93,8 +90,8 @@ namespace gameEngine {
 
 	GameEngine::~GameEngine(void)
 	{
-		for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
-			delete (*it);
+		for (itTick = sprites.begin(); itTick != sprites.end(); itTick++) {
+			delete (*itTick++);
 		}
 	}
 }

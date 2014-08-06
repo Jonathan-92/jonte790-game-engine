@@ -4,11 +4,18 @@
 
 class Tower : public gameEngine::Sprite {
 public:
-	Tower(int x, int y, int w, int h);
 	~Tower(void);
-	void draw();
-	void tick();
-	void mouseDown(int x, int y);
+	virtual void tick();
+	virtual void draw();
+	virtual void mouseDown(int x, int y);
+	static int getGoldCost();
+protected:
+	Tower(int x, int y, int w, int h);
+	static int goldCost;
+private:
+	Tower(const Tower&);
+	const Tower& operator=(const Tower&);
 };
+
 
 #endif

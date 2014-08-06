@@ -5,17 +5,20 @@
 
 class Projectile : public gameEngine::Sprite {
 public:
-	Projectile(int x, int y, int w, int h);
+	Projectile(int towerX, int towerY, int targetX, int targetY, int w, int h, int damage, int speed, const char* image);
 	~Projectile(void);
 	void draw();
 	void tick();
-	void setTarget(int x, int y);
+	int getDamage();
 private:
+	int damage;
+	int speed;
 	int towerX, towerY;
 	int yTarget;
 	int xTarget;
-	int yRatio;
-	int xRatio;
+	int xDistance, yDistance;
+	int speedX, speedY;
+	int distance;
 };
 
 #endif

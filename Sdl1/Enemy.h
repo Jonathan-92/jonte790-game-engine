@@ -2,6 +2,7 @@
 #define ENEMY_H
 #include "Sprite.h"
 #include <SDL.h>
+#include "Label.h"
 
 class Enemy : public gameEngine::Sprite {
 public:
@@ -9,10 +10,15 @@ public:
 	~Enemy(void);
 	void draw();
 	void tick();
-	static void upHealth(int h);
+	static void setHealth(int h);
 	void checkIfHit();
+	static void setValue(int v);
 private:
 	int health;
+	int speed;
+	static int value;
+	gameEngine::Label* healthLabel;
+	std::string update();
 };
 
 #endif

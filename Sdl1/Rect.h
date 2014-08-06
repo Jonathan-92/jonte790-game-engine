@@ -11,6 +11,7 @@ namespace gameEngine {
 		bool contains(int xx, int yy) const;
 		Rect centeredRect(int width, int height) const;
 		bool overlaps(const Rect& other) const;
+		void setRect(int x, int y, int w, int h);
 	};
 }
 

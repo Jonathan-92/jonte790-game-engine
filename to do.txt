@@ -1,13 +1,11 @@
 To do:
-- disabla start-knappen
-- grafik för att placera ut torn
 - animation av torn
-- poäng
 - fler fiendetyper
+- vector eller list?
+- göra samling med torn (???)
+- skott riktningar (typ klar)
 
 Must do:
 - förhindra värdesemantik hos Sprite
 - fixa minnesläckage
-- skott
-- Fixa timer i wave spawn eller spawna bara en gubbe
 - fixa synlighet på medlemmarna

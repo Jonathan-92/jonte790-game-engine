@@ -35,4 +35,11 @@ namespace gameEngine {
 
 		return true;
 	}
+
+	void Rect::setRect(int xx, int yy, int ww, int hh) {
+		x = xx;
+		y = yy;
+		w = ww;
+		h = hh;
+	}
 }
