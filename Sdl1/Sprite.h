@@ -12,6 +12,7 @@ namespace gameEngine {
 		virtual void draw() = 0;
 		virtual void tick() = 0;
 		virtual void mouseDown(int x, int y);
+		virtual void keyDown(SDLKey key);
 	protected:
 		SDL_Surface* image;
 		Sprite(int x, int y, int w, int h);

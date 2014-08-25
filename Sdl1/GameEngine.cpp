@@ -54,6 +54,11 @@ namespace gameEngine {
 				case SDL_MOUSEBUTTONDOWN:
 					forAll(&Sprite::mouseDown, event.button.x, event.button.y);
 					break;
+				case SDL_KEYDOWN:
+					for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
+						(*it)->keyDown(event.key.keysym.sym);
+					}
+					break;
 				}
 
 			}

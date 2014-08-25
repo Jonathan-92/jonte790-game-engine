@@ -9,6 +9,7 @@
 #include "Projectile.h"
 #include <vector>
 #include "SDL_timer.h"
+#include "SDL.h"
 
 class Spawner : public gameEngine::Sprite {
 public:
@@ -17,6 +18,7 @@ public:
 	void draw();
 	void tick();
 	void mouseDown(int x, int y);
+	void keyDown(SDLKey key);
 	static void start();
 	static void enableBuilding();
 	static std::vector<Projectile*> projectiles;
@@ -29,8 +31,8 @@ public:
 	static bool buildingAdvancedTower;
 	static unsigned int building_tower;
 private:
-	SDL_Surface* imageBasicTower;
-	SDL_Surface* imageAdvancedTower;
+	static SDL_Surface* imageBasicTower;
+	static SDL_Surface* imageAdvancedTower;
 	bool towerOverlaps(Tower* t);
 	static SDL_TimerID myTimerID;
 	static Uint32 startTimer;

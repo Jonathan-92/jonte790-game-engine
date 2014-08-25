@@ -10,6 +10,7 @@
 #include "BasicTower.h"
 #include "AdvancedTower.h"
 #include "Rect.h"
+#include "SDL.h"
 
 using namespace gameEngine;
 
@@ -32,24 +33,25 @@ void Spawner::draw() {
 	int x, y;
 	SDL_GetMouseState(&x, &y);
 
-	if ((x < 350 || x > 500) && y < 650) {
+	if ((y < 66 || x > 700 || (x > 400 && y > 400) || (x < 266 && y > 200) ||
+		(x > 300 && x < 566 && y > 200 && y < 266)) && y < 670) {
 		rect.setRect(x, y, 32, 32);
 
-		if (buildingBasicTower) {
+		if (BUILDING_BASIC & building_tower) {
 			SDL_BlitSurface(imageBasicTower, NULL, sys.screen, &rect);
 		}
-		else if (buildingAdvancedTower) {
+		else if (BUILDING_ADVANCED & building_tower) {
 			SDL_BlitSurface(imageAdvancedTower, NULL, sys.screen, &rect);
 		}
 	}
 }
 
+SDL_Surface* Spawner::imageBasicTower = SDL_DisplayFormat(SDL_LoadBMP("../images/basic_tower.bmp"));
+SDL_Surface* Spawner::imageAdvancedTower;
 bool Spawner::started;
-bool Spawner::buildingBasicTower;
-bool Spawner::buildingAdvancedTower;
 int Spawner::lives = 10;
 int Spawner::level = 0;
-int Spawner::gold = 5;
+int Spawner::gold = 8;
 int Spawner::times = 0;
 unsigned int Spawner::building_tower = 0U;
 Uint32 Spawner::startTimer;
@@ -68,7 +70,8 @@ void Spawner::start() {
 }
 
 void Spawner::mouseDown(int x, int y) {
-	if ((x < 350 || x > 500) && y < 650) {
+	if ((y < 66 || x > 700 || (x > 400 && y > 400) || (x < 266 && y > 200) || 
+		(x > 300 && x < 566 && y > 200 && y < 266)) && y < 670) {
 		
 		Tower* t;
 
@@ -109,12 +112,25 @@ void Spawner::mouseDown(int x, int y) {
 
 }
 
+void Spawner::keyDown(SDLKey key) {
+	if (key == SDLK_q) {
+		building_tower &= 0U;
+		building_tower |= BUILDING_BASIC;
+	}
+	else if (key == SDLK_w) {
+		building_tower &= 0U;
+		building_tower |= BUILDING_ADVANCED;
+	}
+}
+
 bool Spawner::towerOverlaps(Tower* t) {
 	for (std::vector<Tower*>::iterator it = towers.begin(); it != towers.end(); it++) {
 		if (t->rect.overlaps((*it)->rect)) {
 			return true;
 		}
 	}
+
+	return false;
 }
 
 void Spawner::removeProjectile(Projectile* p) {
@@ -129,7 +145,7 @@ void Spawner::tick() {
 
 		 //Spawns a new enemy every second
 		if (elapsed > 1000) {
-			ga.add(new Enemy(430, 0, 32, 32));
+			ga.add(new Enemy(-50, 130, 32, 32));
 			startTimer = end;
 			times++;
 		}

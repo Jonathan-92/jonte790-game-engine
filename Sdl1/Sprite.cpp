@@ -13,6 +13,10 @@ namespace gameEngine {
 	
 	}
 
+	void Sprite::keyDown(SDLKey key) {
+
+	}
+
 	Sprite::~Sprite()
 	{
 		 

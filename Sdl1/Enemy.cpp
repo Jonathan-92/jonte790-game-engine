@@ -17,7 +17,7 @@ Enemy::Enemy(int x, int y, int w, int h) : Sprite(x, y, w, h), health(health)
 	image = SDL_DisplayFormat(SDL_LoadBMP("../images/enemy2.bmp"));	// fixa PNG
 	Uint32 transp = *(Uint32*)image->pixels;
 	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
-	healthLabel = Label::getInstance(x + 70, y, 40, 10, "5");
+	healthLabel = Label::getInstance(x + 150, y, 40, 10, "5");
 	ga.add(healthLabel);
 	health = pow(Spawner::level, 2) * 3;
 	speed = 2;
@@ -30,14 +30,24 @@ void Enemy::draw() {
 int Enemy::value;
 
 void Enemy::tick() {
-	rect.y += speed;
-	healthLabel->rect.y += speed;
+	if (rect.x < 626 && rect.y < 200) {
+		rect.x += speed;
+		healthLabel->rect.x += speed;
+	}
+	else if (rect.x > 330 && rect.y > 330) {
+		rect.x -= speed;
+		healthLabel->rect.x -= speed;
+	}
+	else {
+		rect.y += speed;
+		healthLabel->rect.y += speed;
+	}
 
 	ostringstream os;
 	os << health;
 	healthLabel->setText(os.str());
 	
-	if (rect.y > 800) {
+	if (rect.y >= 668) {
 		Spawner::lives--;
 		delete this;
 		return;
