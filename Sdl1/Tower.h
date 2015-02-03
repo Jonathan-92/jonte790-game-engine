@@ -1,17 +1,19 @@
 #ifndef TOWER_H
 #define TOWER_H
-#include "Sprite.h"
 
+#include "Sprite.h"
+#include "Projectile.h"
+
+//template <typename T>
 class Tower : public gameEngine::Sprite {
 public:
 	~Tower(void);
-	virtual void tick();
-	virtual void draw();
-	virtual void mouseDown(int x, int y);
-	static int getGoldCost();
+	int getGoldCost();
 protected:
-	Tower(int x, int y, int w, int h);
-	static int goldCost;
+	Tower(int x, int y, int w, int h, std::string imgPath);
+	int goldCost;
+	int damage;
+	int speed;
 private:
 	Tower(const Tower&);
 	const Tower& operator=(const Tower&);

@@ -1,13 +1,12 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 #include "Sprite.h"
-#include "Tower.h"
 
 class Projectile : public gameEngine::Sprite {
 public:
-	Projectile(int towerX, int towerY, int targetX, int targetY, int w, int h, int damage, int speed, const char* image);
+	Projectile(int towerX, int towerY, int targetX, int targetY, 
+		int w, int h, int damage, int speed, std::string image);
 	~Projectile(void);
-	void draw();
 	void tick();
 	int getDamage();
 private:

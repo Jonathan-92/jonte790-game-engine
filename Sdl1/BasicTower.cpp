@@ -4,22 +4,20 @@
 #include "GameEngine.h"
 #include "Tower.h"
 
+#include "GameHandler.h"
+
 using namespace gameEngine;
 
-BasicTower::BasicTower(int x, int y, int w, int h) : Tower(x, y, w, h)
+BasicTower::BasicTower(int x, int y, int w, int h) : 
+Tower(x, y, w, h, "../images/basic_tower.bmp")
 {
 	goldCost = 5;
-	image = SDL_DisplayFormat(SDL_LoadBMP("../images/basic_tower.bmp"));
-	Uint32 transp = *(Uint32*)image->pixels;
-	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
 }
 
 void BasicTower::mouseDown(int x, int y) {
-	
-		Projectile* projectile = new Projectile(rect.x, rect.y, x, y, 10, 10, 1, 5, "../images/projectile.bmp");
-		ga.add(projectile);
-		Spawner::projectiles.push_back(projectile);
-	
+	Projectile* projectile = new Projectile(rect.x, rect.y, x, y, 10, 10, 1, 5, "../images/projectile.bmp");
+	ga.add(projectile);
+	gh.projectiles.push_back(projectile);
 }
 
 void BasicTower::tick() {

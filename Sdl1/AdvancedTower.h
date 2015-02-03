@@ -9,6 +9,7 @@ public:
 	AdvancedTower(int x, int y, int w, int h);
 	~AdvancedTower();
 	void mouseDown(int x, int y);
+	void mousePressed(int x, int y);
 	void tick();
 };
 

@@ -13,6 +13,14 @@ namespace gameEngine {
 		return xx >= x && xx <= x + w && yy >= y && yy <= y + h;
 	}
 
+	int Rect::centeredX() {
+		return x + w / 2;
+	}
+
+	int Rect::centeredY() {
+		return y + h / 2;
+	}
+
 	Rect Rect::centeredRect(int width, int height) const{
 		return Rect(x + w/2 - width/2, y + h/2 - height/2, width, height);
 	}

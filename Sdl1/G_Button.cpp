@@ -1,19 +1,17 @@
 #include "G_Button.h"
-#include "Globals.h"
+
 #include <SDL.h>
+#include <string>
 
 namespace gameEngine {
 
-	G_Button::G_Button(int x, int y, int w, int h, const char* imgPath, FuncPtr fp) : Sprite(x, y, w, h), funcPtr(fp) {
-		image = SDL_LoadBMP(imgPath);
+	G_Button::G_Button(int x, int y, int w, int h, std::string imgPath, 
+		FuncPtr fp) : Sprite(x, y, w, h, imgPath), funcPtr(fp) 
+	{
 	}
 
 	G_Button::~G_Button(void)
 	{
-	}
-
-	void G_Button::draw() {
-		SDL_BlitSurface(image, NULL, sys.screen, &rect);
 	}
 
 	void G_Button::tick() {
@@ -21,7 +19,7 @@ namespace gameEngine {
 	}
 
 	void G_Button::mouseDown(int x, int y) {
-		if (getRect().contains(x, y)) {
+		if (rect.contains(x, y)) {
 			funcPtr();
 		}
 	}

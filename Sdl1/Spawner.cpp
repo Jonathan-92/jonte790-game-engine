@@ -2,7 +2,7 @@
 #include "GameEngine.h"
 #include "Enemy.h"
 #include "Tower.h"
-#include "Globals.h"
+
 #include <vector>
 #include <iostream>
 #include "SDL_timer.h"
@@ -11,52 +11,25 @@
 #include "AdvancedTower.h"
 #include "Rect.h"
 #include "SDL.h"
+#include "GameHandler.h"
 
 using namespace gameEngine;
 
-Spawner::Spawner() : Sprite(0, 0, 0, 0) {
-	imageBasicTower = SDL_DisplayFormat(SDL_LoadBMP("../images/basic_tower.bmp"));
-	Uint32 transp = *(Uint32*)imageBasicTower->pixels;
-	SDL_SetColorKey(imageBasicTower, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
+Spawner::Spawner() : times(0) {
+}
 
-	imageAdvancedTower = SDL_DisplayFormat(SDL_LoadBMP("../images/advanced_tower.bmp"));
-	Uint32 transp2 = *(Uint32*)imageAdvancedTower->pixels;
-	SDL_SetColorKey(imageAdvancedTower, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp2);
-
+Spawner* Spawner::getInstance() {
+	static Spawner spawner;
+	return &spawner;
 }
 
 Spawner::~Spawner(void) {
+
 }
 
 void Spawner::draw() {
 
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-
-	if ((y < 66 || x > 700 || (x > 400 && y > 400) || (x < 266 && y > 200) ||
-		(x > 300 && x < 566 && y > 200 && y < 266)) && y < 670) {
-		rect.setRect(x, y, 32, 32);
-
-		if (BUILDING_BASIC & building_tower) {
-			SDL_BlitSurface(imageBasicTower, NULL, sys.screen, &rect);
-		}
-		else if (BUILDING_ADVANCED & building_tower) {
-			SDL_BlitSurface(imageAdvancedTower, NULL, sys.screen, &rect);
-		}
-	}
 }
-
-SDL_Surface* Spawner::imageBasicTower = SDL_DisplayFormat(SDL_LoadBMP("../images/basic_tower.bmp"));
-SDL_Surface* Spawner::imageAdvancedTower;
-bool Spawner::started;
-int Spawner::lives = 10;
-int Spawner::level = 0;
-int Spawner::gold = 8;
-int Spawner::times = 0;
-unsigned int Spawner::building_tower = 0U;
-Uint32 Spawner::startTimer;
-std::vector<Projectile*> Spawner::projectiles;
-std::vector<Tower*> Spawner::towers;
 
 void Spawner::start() {
 	if (started) {
@@ -65,76 +38,8 @@ void Spawner::start() {
 
 	started = true;
 	startTimer = SDL_GetTicks();
-	level += 1;
-	Enemy::setValue(pow(level, 2) / 2 + 1);
-}
-
-void Spawner::mouseDown(int x, int y) {
-	if ((y < 66 || x > 700 || (x > 400 && y > 400) || (x < 266 && y > 200) || 
-		(x > 300 && x < 566 && y > 200 && y < 266)) && y < 670) {
-		
-		Tower* t;
-
-		if (BUILDING_BASIC & building_tower && gold >= BasicTower::getGoldCost()) {
-			t = new BasicTower(x, y, 32, 32);
-
-			// If the new tower overlaps another tower, don't place it
-			if (towerOverlaps(t)) {
-				return;
-			}
-
-			building_tower = 0U;
-			Spawner::gold -= BasicTower::getGoldCost();
-		}
-		else if (BUILDING_ADVANCED & building_tower && gold >= AdvancedTower::getGoldCost()) {
-			t = new AdvancedTower(x, y, 32, 32);
-
-			// If the new tower overlaps another tower, don't place it
-			if (towerOverlaps(t)) {
-				return;
-			}
-
-			building_tower = 0U;
-			Spawner::gold -= AdvancedTower::getGoldCost();
-		}
-		else {
-			building_tower & 0U;
-			return;
-		}
-
-		towers.push_back(t);
-		ga.add(t);
-		
-	}
-	else {
-		building_tower & 0U;
-	}
-
-}
-
-void Spawner::keyDown(SDLKey key) {
-	if (key == SDLK_q) {
-		building_tower &= 0U;
-		building_tower |= BUILDING_BASIC;
-	}
-	else if (key == SDLK_w) {
-		building_tower &= 0U;
-		building_tower |= BUILDING_ADVANCED;
-	}
-}
-
-bool Spawner::towerOverlaps(Tower* t) {
-	for (std::vector<Tower*>::iterator it = towers.begin(); it != towers.end(); it++) {
-		if (t->rect.overlaps((*it)->rect)) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-void Spawner::removeProjectile(Projectile* p) {
-	projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), p), projectiles.end());
+	gh.setNextLevel();
+	Enemy::setValue(pow(gh.getLevel(), 2) / 2 + 1);
 }
 
 void Spawner::tick() {
@@ -143,14 +48,13 @@ void Spawner::tick() {
 		Uint32 end = SDL_GetTicks();
 		Uint32 elapsed = end - startTimer;
 
-		 //Spawns a new enemy every second
+		// Spawns a new enemy every second until 5 enemies have been spawned
 		if (elapsed > 1000) {
-			ga.add(new Enemy(-50, 130, 32, 32));
+			ga.add(new Enemy(gh.checkpoints[0].x, gh.checkpoints[0].y, 32, 32));
 			startTimer = end;
 			times++;
 		}
-
-		if (times > 5) {
+		if (times > 4) {
 			started = false;
 			times = 0;
 		}

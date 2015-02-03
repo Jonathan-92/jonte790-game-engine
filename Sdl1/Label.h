@@ -12,16 +12,15 @@ public:
 	typedef std::string (*FuncPtr)();
 	static Label* getInstance(int x, int y, int w, int h, std::string text, FuncPtr fp);
 	static Label* getInstance(int x, int y, int w, int h, std::string text);
-	void draw();
 	void tick();
-	void setText(std::string);
+	void setText(std::string text);
 	~Label(void);
-private:
-	FuncPtr funcPtr;
+protected:
 	Label(int x, int y, int w, int h, std::string text, FuncPtr fp);
 	Label(int x, int y, int w, int h, std::string text);
-	std::string text;
-	SDL_Surface* image;
+private:
+	static const SDL_Color black;
+	FuncPtr funcPtr;
 };
 
 }

@@ -2,6 +2,7 @@
 #define GAMEENGINE_H
 #include "Sprite.h"
 #include <list>
+#include "SDL_ttf.h"
 
 namespace gameEngine {
 
@@ -16,12 +17,18 @@ namespace gameEngine {
 		void setVideoMode(int w, int h);
 		void setFps(int i);
 		std::list<Sprite*> getSprites() const;
+		SDL_Renderer* getRenderer();
+		TTF_Font* getFont();
 	private:
+		SDL_Window* screen;
+		SDL_Renderer* renderer;
+		TTF_Font* font;
 		int fps;
-		const char* bgPath;
+		std::string bgPath;
 		std::list<Sprite*> sprites;
-		void forAll(void (Sprite::*membrPtr)(int, int), int x, int y);
 		std::list<Sprite*>::iterator itTick;
+		void forAll(void (Sprite::*membrPtr)(int, int), int x, int y);
+		void throwException(std::string, const char* (*errorFunc)());
 	};
 
 	extern GameEngine ga;

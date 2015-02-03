@@ -1,6 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 #include "Rect.h"
+#include <string>
 
 namespace gameEngine {
 
@@ -8,14 +9,17 @@ namespace gameEngine {
 	public:
 		virtual ~Sprite();
 		Rect rect;
-		Rect getRect() const;
-		virtual void draw() = 0;
-		virtual void tick() = 0;
-		virtual void mouseDown(int x, int y);
-		virtual void keyDown(SDLKey key);
+		virtual void draw();
+		virtual void tick(){}
+		virtual void mouseDown(int x, int y){}
+		virtual void mousePressed(int x, int y){}
+		virtual void keyDown(SDL_Event& e){}
 	protected:
-		SDL_Surface* image;
-		Sprite(int x, int y, int w, int h);
+		SDL_Texture* texture;
+		void setTexture(SDL_Surface* surface);
+		Sprite(int x, int y, int w, int h, std::string imgPath);
+		Sprite(int x, int y, int w, int h, SDL_Surface* surface);
+		Sprite();
 	private:
 		Sprite(const Sprite&);
 		const Sprite& operator=(const Sprite&);

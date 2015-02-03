@@ -1,32 +1,37 @@
 #include <SDL.h>
 #include "GameEngine.h"
-#include "Globals.h"
+
 #include "Enemy.h"
 #include "G_Button.h"
 #include "Spawner.h"
 #include <Windows.h>
 #include "Label.h"
 #include <sstream>
+#include "GameHandler.h"
+#include "Builder.h"
 
 using namespace gameEngine;
 using namespace std;
+
+Spawner* spawner = Spawner::getInstance();
+Builder* builder = Builder::getInstance();
 
 void quit() {
 	exit(0);
 }
 
 void start() {
-	Spawner::start();
+	spawner->start();
 }
 
 void buildBasicTower() {
-	Spawner::building_tower &= 0U;
-	Spawner::building_tower |= BUILDING_BASIC;
+	builder->building_tower &= 0U;
+	builder->building_tower |= BUILDING_BASIC;
 }
 
 void buildAdvancedTower() {
-	Spawner::building_tower &= 0U;
-	Spawner::building_tower |= BUILDING_ADVANCED;
+	builder->building_tower &= 0U;
+	builder->building_tower |= BUILDING_ADVANCED;
 }
 
 string updateLabel(int value, string label) {
@@ -36,23 +41,19 @@ string updateLabel(int value, string label) {
 }
 
 string updateLives() {
-	return updateLabel(Spawner::lives, "Lives: ");
+	return updateLabel(gh.getLives(), "Lives: ");
 }
 
 string updateGold() {
-	return updateLabel(Spawner::gold, "Gold: ");
+	return updateLabel(gh.gold, "Gold: ");
 }
 
 string updateLevel() {
-	return updateLabel(Spawner::level, "Level: ");
+	return updateLabel(gh.getLevel(), "Level: ");
 }
 
-int main(int argc, char** argv) {
-	ga.setVideoMode(900, 800);
-	ga.setBackground("../images/map.bmp");
-	ga.setFps(100);
-	ga.add(new Spawner());
-
+void addLabels()
+{
 	Label* lives = Label::getInstance(800, 10, 50, 10, "Lives: ", updateLives);
 	ga.add(lives);
 
@@ -67,7 +68,10 @@ int main(int argc, char** argv) {
 
 	Label* advancedTowerLabel = Label::getInstance(375, 705, 50, 10, "Build  Advanced Tower (10 gold): ");
 	ga.add(advancedTowerLabel);
+}
 
+void addButtons()
+{
 	G_Button* basicTowerButton = new G_Button(105, 730, 50, 50, "../images/basic_tower.bmp", buildBasicTower);
 	ga.add(basicTowerButton);
 
@@ -79,8 +83,20 @@ int main(int argc, char** argv) {
 
 	G_Button* quitButton = new G_Button(5, 755, 75, 25, "../images/quitButton.bmp", quit);
 	ga.add(quitButton);
+}
+
+int main(int argc, char** argv) {
+	ga.setVideoMode(900, 800);
+	ga.setBackground("../images/map.bmp");
+	ga.setFps(100);
+
+	ga.add(spawner);
+	ga.add(builder);
+	addLabels();
+	addButtons();
 
 	ga.run();
 
 	return 0;
 }
+

@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include "Globals.h"
+
 #include <SDL.h>
 #include <vector>
 #include "Projectile.h"
@@ -8,72 +8,82 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include "GameHandler.h"
 
 using namespace std;
 using namespace gameEngine;
 
-Enemy::Enemy(int x, int y, int w, int h) : Sprite(x, y, w, h), health(health)
+Enemy::Enemy(int x, int y, int w, int h) : 
+Sprite(x, y, w, h, "../images/enemy2.bmp"), nextCp(1)
 {
-	image = SDL_DisplayFormat(SDL_LoadBMP("../images/enemy2.bmp"));	// fixa PNG
-	Uint32 transp = *(Uint32*)image->pixels;
-	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, transp);
 	healthLabel = Label::getInstance(x + 150, y, 40, 10, "5");
 	ga.add(healthLabel);
-	health = pow(Spawner::level, 2) * 3;
-	speed = 2;
-}
-
-void Enemy::draw() {
-	SDL_BlitSurface(image, NULL, sys.screen, &rect);
+	health = pow(gh.getLevel(), 2) * 3;
 }
 
 int Enemy::value;
 
-void Enemy::tick() {
-	if (rect.x < 626 && rect.y < 200) {
-		rect.x += speed;
-		healthLabel->rect.x += speed;
+void Enemy::move() {
+	int xDiff = rect.centeredX() - gh.checkpoints[nextCp].x;
+	int yDiff = rect.centeredY() - gh.checkpoints[nextCp].y;
+
+	if (xDiff < 0) {
+		rect.x += SPEED;
+		healthLabel->rect.x += SPEED;
 	}
-	else if (rect.x > 330 && rect.y > 330) {
-		rect.x -= speed;
-		healthLabel->rect.x -= speed;
-	}
-	else {
-		rect.y += speed;
-		healthLabel->rect.y += speed;
+	else if (xDiff > 0) {
+		rect.x -= SPEED;
+		healthLabel->rect.x -= SPEED;
 	}
 
-	ostringstream os;
-	os << health;
-	healthLabel->setText(os.str());
-	
-	if (rect.y >= 668) {
-		Spawner::lives--;
+	if (yDiff < 0) {
+		rect.y += SPEED;
+		healthLabel->rect.y += SPEED;
+	}
+	else if (yDiff > 0) {
+		rect.y -= SPEED;
+		healthLabel->rect.y -= SPEED;
+	}
+
+	if (xDiff == 0 && yDiff == 0) {
+		++nextCp;
+	}
+}
+
+void Enemy::tick() {
+	if (nextCp == FINISHED) {
+		gh.decreaseLives(DAMAGE);
 		delete this;
 		return;
 	}
 
-	checkIfHit();
+	move();
 
-	if (health < 1) {
-		Spawner::gold += value;
-		delete this;
-	}
+	ostringstream os;
+	os << health;
+	healthLabel->setText(os.str());
+
+	checkIfHit();
 }
 
 void Enemy::checkIfHit() {
-	std::vector<Projectile*>::iterator it = Spawner::projectiles.begin();
+	std::vector<Projectile*>::iterator it = gh.projectiles.begin();
 
-	while (it != Spawner::projectiles.end()) {
+	while (it != gh.projectiles.end()) {
 		if ((*it)->rect.overlaps(rect)) {
 			ga.remove(*it);
-			it = Spawner::projectiles.erase(it);
+			it = gh.projectiles.erase(it);
 			health -= (*it)->getDamage();
-		} else {
+		}
+		else {
 			++it;
 		}
 	}
 
+	if (health < 1) {
+		gh.gold += value;
+		delete this;
+	}
 }
 
 void Enemy::setValue(int v) {
