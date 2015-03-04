@@ -23,7 +23,7 @@ Spawner* Spawner::getInstance() {
 	return &spawner;
 }
 
-Spawner::~Spawner(void) {
+Spawner::~Spawner() {
 
 }
 
@@ -50,7 +50,7 @@ void Spawner::tick() {
 
 		// Spawns a new enemy every second until 5 enemies have been spawned
 		if (elapsed > 1000) {
-			ga.add(new Enemy(gh.checkpoints[0].x, gh.checkpoints[0].y, 32, 32));
+			ge().add(new Enemy(gh.checkpoints[0].x, gh.checkpoints[0].y, 32, 32));
 			startTimer = end;
 			times++;
 		}

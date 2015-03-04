@@ -10,20 +10,14 @@
 using namespace gameEngine;
 
 AdvancedTower::AdvancedTower(int x, int y, int w, int h) : 
-Tower(x, y, w, h, "../images/advanced_tower.bmp")
+	Tower(x, y, w, h, "../images/advanced_tower.bmp", 
+	"../images/projectile_adv.bmp")
 {
-	goldCost = 10;
+	damage = 2;
+	speed = 4;
 }
 
-void AdvancedTower::mouseDown(int x, int y) {
-	gh.addProjectile(new Projectile(rect.x, rect.y, x, y, 10, 10, 2, 10, 
-		"../images/projectile_adv.bmp"));
-}
-
-void AdvancedTower::mousePressed(int x, int y) {
-	gh.addProjectile(new Projectile(rect.x, rect.y, x, y, 10, 10, 2, 10,
-		"../images/projectile_adv.bmp"));
-}
+const int AdvancedTower::goldCost = 10;
 
 void AdvancedTower::tick() {
 

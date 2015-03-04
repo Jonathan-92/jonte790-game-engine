@@ -14,7 +14,7 @@ public:
 	static Label* getInstance(int x, int y, int w, int h, std::string text);
 	void tick();
 	void setText(std::string text);
-	~Label(void);
+	~Label();
 protected:
 	Label(int x, int y, int w, int h, std::string text, FuncPtr fp);
 	Label(int x, int y, int w, int h, std::string text);

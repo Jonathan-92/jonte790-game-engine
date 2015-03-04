@@ -16,8 +16,7 @@ namespace gameEngine {
 		virtual void keyDown(SDL_Event& e){}
 	protected:
 		SDL_Texture* texture;
-		void setTexture(SDL_Surface* surface);
-		Sprite(int x, int y, int w, int h, std::string imgPath);
+		Sprite(int x, int y, int w, int h, std::string imgPath, bool transp);
 		Sprite(int x, int y, int w, int h, SDL_Surface* surface);
 		Sprite();
 	private:

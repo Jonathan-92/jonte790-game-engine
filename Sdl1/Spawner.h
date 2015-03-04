@@ -12,7 +12,7 @@
 class Spawner : public gameEngine::Sprite {
 public:
 	static Spawner* getInstance();
-	~Spawner(void);
+	~Spawner();
 	void draw();
 	void tick();
 	void start();

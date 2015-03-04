@@ -1,0 +1,5 @@
+Mål: Förhindra fiender att ta sig från början till slutet av banan genom att skjuta ner dem med torn. Samla så många poäng som möjligt.
+
+- Bygg torn genom att klicka på ikonerna i bottenpanelen eller använda tangenterna Q eller W
+- Klicka på Start-knappen för att spawna fiender
+- När dina 10 liv är slut är spelet över.

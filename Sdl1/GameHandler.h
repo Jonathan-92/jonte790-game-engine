@@ -5,11 +5,14 @@
 #include <vector>
 #include "Projectile.h"
 
+
+//Stores values and objects related to the game and makes them 
+//globally available to other classes in the game, with certain
+//restrictions
 class GameHandler
 {
 public:
 	GameHandler();
-	//static GameHandler* getInstance();
 	static const Checkpoint checkpoints[5];
 	static std::vector<Projectile*> projectiles;
 	int gold;

@@ -9,16 +9,13 @@
 using namespace gameEngine;
 
 BasicTower::BasicTower(int x, int y, int w, int h) : 
-Tower(x, y, w, h, "../images/basic_tower.bmp")
+Tower(x, y, w, h, "../images/basic_tower.bmp", "../images/projectile.bmp")
 {
-	goldCost = 5;
+	damage = 1;
+	speed = 2;
 }
 
-void BasicTower::mouseDown(int x, int y) {
-	Projectile* projectile = new Projectile(rect.x, rect.y, x, y, 10, 10, 1, 5, "../images/projectile.bmp");
-	ga.add(projectile);
-	gh.projectiles.push_back(projectile);
-}
+const int BasicTower::goldCost = 5;
 
 void BasicTower::tick() {
 

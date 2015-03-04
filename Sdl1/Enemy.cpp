@@ -1,5 +1,4 @@
 #include "Enemy.h"
-
 #include <SDL.h>
 #include <vector>
 #include "Projectile.h"
@@ -14,11 +13,11 @@ using namespace std;
 using namespace gameEngine;
 
 Enemy::Enemy(int x, int y, int w, int h) : 
-Sprite(x, y, w, h, "../images/enemy2.bmp"), nextCp(1)
+Sprite(x, y, w, h, "../images/enemy2.bmp", true), nextCp(1)
 {
-	healthLabel = Label::getInstance(x + 150, y, 40, 10, "5");
-	ga.add(healthLabel);
 	health = pow(gh.getLevel(), 2) * 3;
+	healthLabel = Label::getInstance(x + 50, y, 10, 10, to_string(health));
+	ge().add(healthLabel);
 }
 
 int Enemy::value;
@@ -51,7 +50,7 @@ void Enemy::move() {
 }
 
 void Enemy::tick() {
-	if (nextCp == FINISHED) {
+	if (nextCp == 5) {
 		gh.decreaseLives(DAMAGE);
 		delete this;
 		return;
@@ -71,9 +70,9 @@ void Enemy::checkIfHit() {
 
 	while (it != gh.projectiles.end()) {
 		if ((*it)->rect.overlaps(rect)) {
-			ga.remove(*it);
+			ge().remove(*it);
 			it = gh.projectiles.erase(it);
-			health -= (*it)->getDamage();
+			health -= (*it)->damage;
 		}
 		else {
 			++it;
@@ -92,7 +91,7 @@ void Enemy::setValue(int v) {
 
 Enemy::~Enemy(void)
 {
-	ga.remove(healthLabel);
+	ge().remove(healthLabel);
 	delete healthLabel;
-	ga.remove(this);
+	ge().remove(this);
 }

@@ -3,18 +3,13 @@
 #include "GameEngine.h"
 #include <vector>
 #include <algorithm>
+#include "Label.h"
 
 using namespace gameEngine;
 
 GameHandler::GameHandler() : lives(10), level(0), gold(8)
 {
 }
-
-//GameHandler* GameHandler::getInstance()
-//{
-//	static GameHandler gh;
-//	return &gh;
-//}
 
 std::vector<Projectile*> GameHandler::projectiles;
 const Checkpoint GameHandler::checkpoints[5] = {
@@ -26,7 +21,7 @@ const Checkpoint GameHandler::checkpoints[5] = {
 };
 
 void GameHandler::addProjectile(Projectile* projectile) {
-	ga.add(projectile);
+	ge().add(projectile);
 	projectiles.push_back(projectile);
 }
 
@@ -47,7 +42,12 @@ int GameHandler::getLevel()
 
 void GameHandler::decreaseLives(int amount) 
 {
-	lives -= amount;
+	if ((lives -= amount) < 1) {
+		Label* loseMsg = Label::getInstance(500, 500, 100, 40, "You lost :)");
+		ge().add(loseMsg);
+		ge().delay(2000);
+		exit(0);
+	}
 }
 
 void GameHandler::setNextLevel() 

@@ -9,8 +9,8 @@ class BasicTower :
 public:
 	BasicTower(int x, int y, int w, int h);
 	~BasicTower();
-	void mouseDown(int x, int y);
 	void tick();
+	static const int goldCost;
 };
 
 #endif

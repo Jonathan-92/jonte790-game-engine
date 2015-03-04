@@ -1,17 +1,14 @@
 To do:
-- vector eller list?
-- göra samling med torn (???)
 - skott riktningar (typ klar)
-- bryt ner Spawner
 - håll in musen för att skjuta
-- Projectile OOP
 
 Must do:
 - förhindra värdesemantik hos Sprite
 - fixa minnesläckage
 - fixa synlighet på medlemmarna
 - lägg till null checkar
-- lägg till const där det ska vara const
+- lägg till const där det ska vara const (funktioner, data, iterator)
+- kommentarer / dokumentation
 
 Innan redovisning:
 - kolla upp typedef (Label.h)

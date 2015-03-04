@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include <vector>
 #include "Tower.h"
+#include "Rect.h"
 
 class Builder : public gameEngine::Sprite
 {
@@ -22,12 +23,15 @@ public:
 	void mouseDown(int x, int y);
 	void keyDown(SDL_Event& eve); 
 	~Builder();
-private:
 	Builder();
+private:
+	const int towerS;
 	SDL_Texture* basicTexture;
 	SDL_Texture* advancedTexture;
 	SDL_Texture* setTexture(SDL_Surface* surface);
-	bool towerOverlaps(Tower* t);
+	const bool withinBuildableArea(int x, int y) const;
+	const int centered(int p) const;
+	const bool overlapsTower(gameEngine::Rect rect) const;
 };
 
 #endif

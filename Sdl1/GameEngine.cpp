@@ -1,5 +1,4 @@
 #include "GameEngine.h"
-
 #include <SDL.h>
 #include <string>
 #include <iostream>
@@ -9,7 +8,17 @@ using namespace std;
 
 namespace gameEngine {
 
-	GameEngine ga;
+	//GameEngine ga;
+
+	void throwException(string msg, const char* (*errorFunc)()) {
+		msg += errorFunc();
+		throw runtime_error(msg.c_str());
+	}
+
+	GameEngine& ge() {
+		static GameEngine* ge = new GameEngine();
+		return *ge;
+	}
 
 	GameEngine::GameEngine() : fps(60) {		// lägg till fler null checkar
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
@@ -18,12 +27,12 @@ namespace gameEngine {
 		if (TTF_Init() == -1)
 			throwException("Failed initialize TTF", TTF_GetError);
 
-		font = TTF_OpenFont("C:/Windows/Fonts/arialbd.ttf", 20);
+		font = TTF_OpenFont("C:/Windows/Fonts/arialbd.ttf", 12);
 		if (font == nullptr)
 			throwException("Failed to open font.", TTF_GetError);
 
 		screen = SDL_CreateWindow("My Game", SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
+			20, 800, 600, SDL_WINDOW_OPENGL);
 		if (screen == nullptr)
 			throwException("Failed creating window.", SDL_GetError);
 
@@ -31,21 +40,22 @@ namespace gameEngine {
 		if (renderer == nullptr)
 			throwException("Failed creating renderer.", SDL_GetError);
 	}
-
-	void GameEngine::throwException(string msg, const char* (*errorFunc)()) {
-		msg += errorFunc();
-		throw runtime_error(msg.c_str());
-	}
-
+	
 	GameEngine::~GameEngine(void)
 	{
-		for (itTick = sprites.begin(); itTick != sprites.end(); itTick++) {
-			delete (*itTick++);
+		/*int i = 0;
+		for (itTick = sprites.begin(); itTick != sprites.end();) {
+			++i;
+			delete *itTick++;
 		}
+*/
+		sprites.clear();
 
-		SDL_Quit();
 		TTF_CloseFont(font);
 		TTF_Quit();
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(screen);
+		SDL_Quit();
 	}
 	
 	SDL_Renderer* GameEngine::getRenderer() {
@@ -83,7 +93,7 @@ namespace gameEngine {
 		Uint32 nextTick;
 		int delay;
 
-		do {
+		while (!quit) {
 			nextTick = SDL_GetTicks() + tickInterval;
 
 			SDL_RenderClear(renderer);
@@ -92,8 +102,6 @@ namespace gameEngine {
 			for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
 				(*it)->draw();
 			}
-
-			SDL_RenderPresent(renderer);
 
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {
@@ -104,6 +112,9 @@ namespace gameEngine {
 					break;
 				case SDL_MOUSEBUTTONDOWN:
 					forAll(&Sprite::mouseDown, event.button.x, event.button.y);
+					if (event.button.state == SDL_PRESSED) {
+						forAll(&Sprite::mousePressed, event.button.x, event.button.y);
+					}
 					break;
 				case SDL_KEYDOWN:
 					for (std::list<Sprite*>::iterator it = sprites.begin(); it != sprites.end(); it++) {
@@ -111,22 +122,23 @@ namespace gameEngine {
 					}
 					break;
 				}
-
-				if (event.button.state == SDL_PRESSED) {
-					forAll(&Sprite::mousePressed, event.button.x, event.button.y);
-				}
 			}
 
-			for (itTick = sprites.begin(); itTick != sprites.end(); ++itTick) {
+			for (itTick = sprites.begin(); itTick != sprites.end(); itTick++) {
 				(*itTick)->tick();
 			}
+
+			SDL_RenderPresent(renderer);
 
 			delay = nextTick - SDL_GetTicks();
 
 			if (delay > 0)
 				SDL_Delay(delay);
+		} 
+	}
 
-		} while (!quit);
+	void GameEngine::delay(int ticks) {
+		SDL_Delay(ticks);
 	}
 	
 	void GameEngine::forAll(void (Sprite::*membrPtr)(int, int), int x, int y) {

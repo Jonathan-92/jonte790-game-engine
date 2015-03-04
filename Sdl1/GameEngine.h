@@ -19,6 +19,7 @@ namespace gameEngine {
 		std::list<Sprite*> getSprites() const;
 		SDL_Renderer* getRenderer();
 		TTF_Font* getFont();
+		void delay(int ticks);
 	private:
 		SDL_Window* screen;
 		SDL_Renderer* renderer;
@@ -28,11 +29,11 @@ namespace gameEngine {
 		std::list<Sprite*> sprites;
 		std::list<Sprite*>::iterator itTick;
 		void forAll(void (Sprite::*membrPtr)(int, int), int x, int y);
-		void throwException(std::string, const char* (*errorFunc)());
 	};
 
-	extern GameEngine ga;
-
+	GameEngine& ge();
+	//extern GameEngine ga;
+	void throwException(std::string, const char* (*errorFunc)());
 }
 
 #endif

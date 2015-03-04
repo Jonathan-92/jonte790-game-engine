@@ -1,31 +1,34 @@
 #include "Projectile.h"
-#include "Tower.h"
 #include "GameEngine.h"
 #include "Spawner.h"
 #include "GameHandler.h"
+#include <iostream>
+#include <math.h>
 
 using namespace gameEngine;
 
-Projectile::Projectile(int towerX, int towerY, int targetX, int targetY, 
-	int w, int h, int dmg, int spd, std::string img) : Sprite(towerX, towerY, w, h, img), 
-	damage(dmg), speed(spd), towerX(towerX), towerY(towerY), xTarget(targetX), yTarget(targetY)
+Projectile::Projectile(Tower* t, int targetX, int targetY) : 
+Sprite(t->rect.centeredX() - width / 2, t->rect.centeredY() - height / 2,
+width, height, t->projImage, true), damage(t->damage)
 {
-	xDistance = xTarget - towerX;
-	yDistance = yTarget - towerY;
+	xDistance = targetX - t->rect.centeredX();
+	yDistance = targetY - t->rect.centeredY();
 	distance = sqrt((xDistance * xDistance) + (yDistance * yDistance));
 
 	if (distance != 0) {
-		speedX = speed * xDistance / distance;
-		speedY = speed * yDistance / distance;
+		speedX = round(t->speed * xDistance / distance);
+		speedY = round(t->speed * yDistance / distance);
 	}
 }
 
-
 Projectile::~Projectile(void)
 {
+	ge().remove(this);
 	gh.removeProjectile(this);
-	ga.remove(this);
 }
+
+const int Projectile::width = 10;
+const int Projectile::height = 10;
 
 void Projectile::tick() {
 	rect.x += speedX;
@@ -35,9 +38,5 @@ void Projectile::tick() {
 	if (outOfBounds) {
 		delete this;
 	}
-}
-
-int Projectile::getDamage() {
-	return damage;
 }
 
