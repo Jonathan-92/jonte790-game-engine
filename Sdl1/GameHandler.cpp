@@ -1,3 +1,5 @@
+
+
 #include "GameHandler.h"
 #include <string>
 #include "GameEngine.h"
@@ -11,7 +13,6 @@ GameHandler::GameHandler() : lives(10), level(0), gold(8)
 {
 }
 
-std::vector<Projectile*> GameHandler::projectiles;
 const Checkpoint GameHandler::checkpoints[5] = {
 	Checkpoint(-50, 150),
 	Checkpoint(650, 150),
@@ -30,23 +31,34 @@ void GameHandler::removeProjectile(Projectile* p) {
 		projectiles.end());
 }
 
-int GameHandler::getLives()
+int GameHandler::getGold() const {
+	return gold;
+}
+
+int GameHandler::getLives() const
 {
 	return lives;
 }
 
-int GameHandler::getLevel()
+int GameHandler::getLevel() const
 {
 	return level;
+}
+
+void GameHandler::decreaseGold(int amount) {
+	gold -= amount;
+}
+
+void GameHandler::increaseGold(int amount) {
+	gold += amount;
 }
 
 void GameHandler::decreaseLives(int amount) 
 {
 	if ((lives -= amount) < 1) {
-		Label* loseMsg = Label::getInstance(500, 500, 100, 40, "You lost :)");
+		Label* loseMsg = Label::getInstance(500, 500, 100, 40, "You lost");
 		ge().add(loseMsg);
-		ge().delay(2000);
-		exit(0);
+		startButton->disable();
 	}
 }
 

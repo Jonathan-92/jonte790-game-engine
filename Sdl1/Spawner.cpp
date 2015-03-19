@@ -1,21 +1,16 @@
 #include "Spawner.h"
 #include "GameEngine.h"
 #include "Enemy.h"
-#include "Tower.h"
-
 #include <vector>
 #include <iostream>
 #include "SDL_timer.h"
 #include <algorithm>
-#include "BasicTower.h"
-#include "AdvancedTower.h"
 #include "Rect.h"
-#include "SDL.h"
 #include "GameHandler.h"
 
 using namespace gameEngine;
 
-Spawner::Spawner() : times(0) {
+Spawner::Spawner() : enemiesSpawned(0) {
 }
 
 Spawner* Spawner::getInstance() {
@@ -52,11 +47,11 @@ void Spawner::tick() {
 		if (elapsed > 1000) {
 			ge().add(new Enemy(gh.checkpoints[0].x, gh.checkpoints[0].y, 32, 32));
 			startTimer = end;
-			times++;
+			enemiesSpawned++;
 		}
-		if (times > 4) {
+		if (enemiesSpawned > 4) {
 			started = false;
-			times = 0;
+			enemiesSpawned = 0;
 		}
 	}
 }

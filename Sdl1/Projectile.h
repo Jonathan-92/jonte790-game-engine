@@ -2,8 +2,6 @@
 #define PROJECTILE_H
 #include "Sprite.h"
 #include "Tower.h"
-#include "BasicTower.h"
-#include "AdvancedTower.h"
 
 class Projectile : public gameEngine::Sprite {
 public:

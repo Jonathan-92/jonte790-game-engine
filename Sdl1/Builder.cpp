@@ -85,7 +85,7 @@ void Builder::mouseDown(int x, int y) {
 
 		Tower* t;
 
-		if (BUILDING_BASIC & building_tower && gh.gold >= BasicTower::goldCost) {
+		if (BUILDING_BASIC & building_tower && gh.getGold() >= BasicTower::goldCost) {
 			t = new BasicTower(centered(x), centered(y), towerS, towerS);
 
 			// If the new tower overlaps another tower, don't place it
@@ -95,9 +95,9 @@ void Builder::mouseDown(int x, int y) {
 			}
 
 			building_tower = 0U;
-			gh.gold -= BasicTower::goldCost;
+			gh.decreaseGold(BasicTower::goldCost);
 		}
-		else if (BUILDING_ADVANCED & building_tower && gh.gold >= AdvancedTower::goldCost) {
+		else if (BUILDING_ADVANCED & building_tower && gh.getGold() >= AdvancedTower::goldCost) {
 			t = new AdvancedTower(centered(x), centered(y), towerS, towerS);
 
 			// If the new tower overlaps another tower, don't place it
@@ -107,7 +107,7 @@ void Builder::mouseDown(int x, int y) {
 			}
 
 			building_tower = 0U;
-			gh.gold -= AdvancedTower::goldCost;
+			gh.decreaseGold(AdvancedTower::goldCost);
 		}
 		else {
 			building_tower = 0U;

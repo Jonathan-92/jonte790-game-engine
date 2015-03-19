@@ -21,7 +21,7 @@ private:
 	SDL_TimerID myTimerID;
 	Uint32 startTimer;
 	bool started;
-	int times;
+	int enemiesSpawned;
 };
 
 #endif

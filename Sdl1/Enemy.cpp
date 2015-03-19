@@ -2,9 +2,7 @@
 #include <SDL.h>
 #include <vector>
 #include "Projectile.h"
-#include "Spawner.h"
 #include "GameEngine.h"
-#include <iostream>
 #include <sstream>
 #include <string>
 #include "GameHandler.h"
@@ -80,7 +78,7 @@ void Enemy::checkIfHit() {
 	}
 
 	if (health < 1) {
-		gh.gold += value;
+		gh.increaseGold(value);
 		delete this;
 	}
 }

@@ -1,8 +1,6 @@
 #include "Projectile.h"
 #include "GameEngine.h"
-#include "Spawner.h"
 #include "GameHandler.h"
-#include <iostream>
 #include <math.h>
 
 using namespace gameEngine;

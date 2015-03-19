@@ -8,7 +8,6 @@ class AdvancedTower :
 public:
 	AdvancedTower(int x, int y, int w, int h);
 	~AdvancedTower();
-	void tick();
 	static const int goldCost;
 };
 

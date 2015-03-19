@@ -11,16 +11,17 @@ using namespace gameEngine;
 Tower::Tower(int x, int y, int w, int h, std::string imgPath, 
 	std::string projImage) : Sprite(x, y, w, h, imgPath, true), projImage(projImage)
 {
-}
-
-//const int Tower::goldCost = 0;
-
-void Tower::mouseDown(int x, int y) {
-	gh.addProjectile(new Projectile(this, x, y));
+	startTimer = SDL_GetTicks();
 }
 
 void Tower::mousePressed(int x, int y) {
-	gh.addProjectile(new Projectile(this, x, y));
+	Uint32 end = SDL_GetTicks();
+	Uint32 elapsed = end - startTimer;
+
+	if (elapsed > 150) {
+		gh.addProjectile(new Projectile(this, x, y));
+		startTimer = end;
+	}
 }
 
 Tower::~Tower(void)

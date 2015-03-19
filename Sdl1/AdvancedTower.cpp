@@ -19,10 +19,6 @@ AdvancedTower::AdvancedTower(int x, int y, int w, int h) :
 
 const int AdvancedTower::goldCost = 10;
 
-void AdvancedTower::tick() {
-
-}
-
 AdvancedTower::~AdvancedTower()
 {
 }

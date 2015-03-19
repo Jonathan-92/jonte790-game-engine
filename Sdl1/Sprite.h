@@ -16,8 +16,15 @@ namespace gameEngine {
 		virtual void keyDown(SDL_Event& e){}
 	protected:
 		SDL_Texture* texture;
+
+		// Creates a Sprite from an image path, and uses the flag transp to 
+		// determine if the background should be transparent of not
 		Sprite(int x, int y, int w, int h, std::string imgPath, bool transp);
+
+		// Creates a Sprite from and SDL_Surface*
 		Sprite(int x, int y, int w, int h, SDL_Surface* surface);
+
+		// Allows for creating a Sprite that has no visibility properties
 		Sprite();
 	private:
 		Sprite(const Sprite&);

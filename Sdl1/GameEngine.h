@@ -17,9 +17,8 @@ namespace gameEngine {
 		void setVideoMode(int w, int h);
 		void setFps(int i);
 		std::list<Sprite*> getSprites() const;
-		SDL_Renderer* getRenderer();
-		TTF_Font* getFont();
-		void delay(int ticks);
+		SDL_Renderer* getRenderer() const;
+		TTF_Font* getFont() const;
 	private:
 		SDL_Window* screen;
 		SDL_Renderer* renderer;

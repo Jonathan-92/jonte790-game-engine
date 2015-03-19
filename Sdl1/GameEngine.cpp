@@ -2,13 +2,10 @@
 #include <SDL.h>
 #include <string>
 #include <iostream>
-#include "Enemy.h"
 
 using namespace std;
 
 namespace gameEngine {
-
-	//GameEngine ga;
 
 	void throwException(string msg, const char* (*errorFunc)()) {
 		msg += errorFunc();
@@ -20,7 +17,7 @@ namespace gameEngine {
 		return *ge;
 	}
 
-	GameEngine::GameEngine() : fps(60) {		// lägg till fler null checkar
+	GameEngine::GameEngine() : fps(60) {
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 			throwException("Failed initialize SDL", SDL_GetError);
 
@@ -43,14 +40,6 @@ namespace gameEngine {
 	
 	GameEngine::~GameEngine(void)
 	{
-		/*int i = 0;
-		for (itTick = sprites.begin(); itTick != sprites.end();) {
-			++i;
-			delete *itTick++;
-		}
-*/
-		sprites.clear();
-
 		TTF_CloseFont(font);
 		TTF_Quit();
 		SDL_DestroyRenderer(renderer);
@@ -58,11 +47,11 @@ namespace gameEngine {
 		SDL_Quit();
 	}
 	
-	SDL_Renderer* GameEngine::getRenderer() {
+	SDL_Renderer* GameEngine::getRenderer() const {
 		return renderer;
 	}
 
-	TTF_Font* GameEngine::getFont() {
+	TTF_Font* GameEngine::getFont() const {
 		return font;
 	}
 
@@ -83,17 +72,16 @@ namespace gameEngine {
 	}
 
 	void GameEngine::run() {
-
 		SDL_Surface* bgSurface = SDL_LoadBMP(bgPath.c_str());	// undantagshantering?
 		SDL_Texture* bgTexture = SDL_CreateTextureFromSurface(renderer, bgSurface);
-		SDL_FreeSurface(bgSurface); 
-		bool quit = false;
+		SDL_FreeSurface(bgSurface);
 
+		bool exited = false;
 		const int tickInterval = 1000 / fps;
 		Uint32 nextTick;
 		int delay;
 
-		while (!quit) {
+		while (!exited) {
 			nextTick = SDL_GetTicks() + tickInterval;
 
 			SDL_RenderClear(renderer);
@@ -108,10 +96,12 @@ namespace gameEngine {
 
 				switch (event.type) {
 				case SDL_QUIT:
-					quit = true;
+					exited = true;
 					break;
 				case SDL_MOUSEBUTTONDOWN:
 					forAll(&Sprite::mouseDown, event.button.x, event.button.y);
+					break;
+				case SDL_MOUSEMOTION:
 					if (event.button.state == SDL_PRESSED) {
 						forAll(&Sprite::mousePressed, event.button.x, event.button.y);
 					}
@@ -122,6 +112,10 @@ namespace gameEngine {
 					}
 					break;
 				}
+			}
+
+			if (event.button.state == SDL_PRESSED) {
+				forAll(&Sprite::mousePressed, event.button.x, event.button.y);
 			}
 
 			for (itTick = sprites.begin(); itTick != sprites.end(); itTick++) {
@@ -135,10 +129,6 @@ namespace gameEngine {
 			if (delay > 0)
 				SDL_Delay(delay);
 		} 
-	}
-
-	void GameEngine::delay(int ticks) {
-		SDL_Delay(ticks);
 	}
 	
 	void GameEngine::forAll(void (Sprite::*membrPtr)(int, int), int x, int y) {

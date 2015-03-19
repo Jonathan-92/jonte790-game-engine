@@ -11,8 +11,10 @@ namespace gameEngine {
 		~G_Button(void);
 		void tick();
 		void mouseDown(int x, int y);
+		void disable();
 	private:
 		FuncPtr funcPtr;
+		bool enabled;
 	};
 
 }

@@ -25,10 +25,16 @@ public:
 	~Builder();
 	Builder();
 private:
+	// Length of tower texture
 	const int towerS;
+	// Texture of BasicTower
 	SDL_Texture* basicTexture;
+	// Texture of AdvancedTower
 	SDL_Texture* advancedTexture;
+	// Help-function to set the texture of a tower
 	SDL_Texture* setTexture(SDL_Surface* surface);
+	// Checks whether the mouse pointer is within an area which a tower can be 
+	// built on
 	const bool withinBuildableArea(int x, int y) const;
 	const int centered(int p) const;
 	const bool overlapsTower(gameEngine::Rect rect) const;

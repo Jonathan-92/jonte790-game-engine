@@ -17,10 +17,6 @@ Tower(x, y, w, h, "../images/basic_tower.bmp", "../images/projectile.bmp")
 
 const int BasicTower::goldCost = 5;
 
-void BasicTower::tick() {
-
-}
-
 BasicTower::~BasicTower()
 {
 }

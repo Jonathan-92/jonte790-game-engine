@@ -45,7 +45,7 @@ string updateLives() {
 }
 
 string updateGold() {
-	return updateLabel(gh.gold, "Gold: ");
+	return updateLabel(gh.getGold(), "Gold: ");
 }
 
 string updateLevel() {
@@ -78,8 +78,8 @@ void addButtons()
 	G_Button* advancedTowerButton = new G_Button(375, 730, 50, 50, "../images/advanced_tower.bmp", buildAdvancedTower);
 	ge().add(advancedTowerButton);
 
-	G_Button* startButton = new G_Button(5, 705, 75, 25, "../images/startButton.bmp", start);
-	ge().add(startButton);
+	gh.startButton = new G_Button(5, 705, 75, 25, "../images/startButton.bmp", start);
+	ge().add(gh.startButton);
 
 	G_Button* quitButton = new G_Button(5, 755, 75, 25, "../images/quitButton.bmp", quit);
 	ge().add(quitButton);

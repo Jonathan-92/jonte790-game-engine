@@ -19,6 +19,7 @@ protected:
 	Label(int x, int y, int w, int h, std::string text, FuncPtr fp);
 	Label(int x, int y, int w, int h, std::string text);
 private:
+	// add copy protection
 	static const SDL_Color black;
 	FuncPtr funcPtr;
 };
