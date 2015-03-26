@@ -4,10 +4,12 @@
 #include "Spawner.h"
 #include "GameEngine.h"
 #include "Tower.h"
-
 #include "GameHandler.h"
 
 using namespace gameEngine;
+
+
+const int AdvancedTower::goldCost = 10;
 
 AdvancedTower::AdvancedTower(int x, int y, int w, int h) : 
 	Tower(x, y, w, h, "../images/advanced_tower.bmp", 
@@ -16,8 +18,6 @@ AdvancedTower::AdvancedTower(int x, int y, int w, int h) :
 	damage = 2;
 	speed = 4;
 }
-
-const int AdvancedTower::goldCost = 10;
 
 AdvancedTower::~AdvancedTower()
 {

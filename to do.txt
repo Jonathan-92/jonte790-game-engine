@@ -1,14 +1,11 @@
 To do:
 - skott riktningar (typ klar)
-- håll in musen för att skjuta
+- håll in musen för att skjuta (typ klar)
+- Gold cost?
 
 Must do:
-- förhindra värdesemantik hos Sprite
 - fixa minnesläckage
 - fixa synlighet på medlemmarna
 - lägg till null checkar
 - lägg till const där det ska vara const (funktioner, data, iterator)
 - kommentarer / dokumentation
-
-Innan redovisning:
-- kolla upp typedef (Label.h)

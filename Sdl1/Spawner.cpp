@@ -34,7 +34,7 @@ void Spawner::start() {
 	started = true;
 	startTimer = SDL_GetTicks();
 	gh.setNextLevel();
-	Enemy::setValue(pow(gh.getLevel(), 2) / 2 + 1);
+	Enemy::setValue(gh.getLevel() * 2);
 }
 
 void Spawner::tick() {

@@ -1,12 +1,14 @@
 #ifndef CHECKPOINT_H
 #define CHECKPOINT_H
 
-class Checkpoint
+/* This struct is a helpful tool to assign where enemies will move. It simply
+stores an x and y coordinate that is set by the constructor. */
+struct Checkpoint
 {
 public:
 	Checkpoint(int x, int y);
-	int const x;
-	int const y;
+	const int x;
+	const int y;
 	~Checkpoint();
 };
 

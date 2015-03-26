@@ -5,17 +5,21 @@
 
 using namespace gameEngine;
 
+
+const int Projectile::width = 10;
+const int Projectile::height = 10;
+
 Projectile::Projectile(Tower* t, int targetX, int targetY) : 
 Sprite(t->rect.centeredX() - width / 2, t->rect.centeredY() - height / 2,
-width, height, t->projImage, true), damage(t->damage)
+width, height, t->projImage, true), damage(t->getDamage())
 {
 	xDistance = targetX - t->rect.centeredX();
 	yDistance = targetY - t->rect.centeredY();
 	distance = sqrt((xDistance * xDistance) + (yDistance * yDistance));
 
 	if (distance != 0) {
-		speedX = round(t->speed * xDistance / distance);
-		speedY = round(t->speed * yDistance / distance);
+		speedX = round(t->getSpeed() * xDistance / distance);
+		speedY = round(t->getSpeed() * yDistance / distance);
 	}
 }
 
@@ -24,9 +28,6 @@ Projectile::~Projectile(void)
 	ge().remove(this);
 	gh.removeProjectile(this);
 }
-
-const int Projectile::width = 10;
-const int Projectile::height = 10;
 
 void Projectile::tick() {
 	rect.x += speedX;
@@ -38,3 +39,6 @@ void Projectile::tick() {
 	}
 }
 
+int Projectile::getDamage() const {
+	return damage;
+}

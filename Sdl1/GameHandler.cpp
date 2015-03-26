@@ -1,13 +1,13 @@
-
-
 #include "GameHandler.h"
 #include <string>
 #include "GameEngine.h"
 #include <vector>
 #include <algorithm>
 #include "Label.h"
+#include <sstream>
 
 using namespace gameEngine;
+using namespace std;
 
 GameHandler::GameHandler() : lives(10), level(0), gold(8)
 {
@@ -26,8 +26,8 @@ void GameHandler::addProjectile(Projectile* projectile) {
 	projectiles.push_back(projectile);
 }
 
-void GameHandler::removeProjectile(Projectile* p) {
-	projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), p), 
+vector<Projectile*>::iterator GameHandler::removeProjectile(Projectile* p) {
+	return projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), p), 
 		projectiles.end());
 }
 
@@ -56,7 +56,10 @@ void GameHandler::increaseGold(int amount) {
 void GameHandler::decreaseLives(int amount) 
 {
 	if ((lives -= amount) < 1) {
-		Label* loseMsg = Label::getInstance(500, 500, 100, 40, "You lost");
+		string msg = "YOU LOST. You reached level: ";
+		ostringstream os;
+		os << msg << level;
+		Label* loseMsg = Label::getInstance(500, 500, 300, 40, os.str());
 		ge().add(loseMsg);
 		startButton->disable();
 	}

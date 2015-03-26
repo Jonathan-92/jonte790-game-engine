@@ -21,7 +21,7 @@ namespace gameEngine {
 		// determine if the background should be transparent of not
 		Sprite(int x, int y, int w, int h, std::string imgPath, bool transp);
 
-		// Creates a Sprite from and SDL_Surface*
+		// Creates a Sprite from an SDL_Surface*
 		Sprite(int x, int y, int w, int h, SDL_Surface* surface);
 
 		// Allows for creating a Sprite that has no visibility properties

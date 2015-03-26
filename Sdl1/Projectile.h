@@ -8,13 +8,14 @@ public:
 	Projectile(Tower* t, int targetX, int targetY);
 	~Projectile(void);
 	void tick();
-	int damage;
+	int getDamage() const;
 private:
 	static const int width;
 	static const int height;
 	int xDistance, yDistance;
-	int speedX = 0, speedY = 0;
+	int speedX, speedY;
 	int distance;
+	int damage;
 };
 
 #endif

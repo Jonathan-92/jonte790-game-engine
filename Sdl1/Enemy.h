@@ -1,26 +1,28 @@
 #ifndef ENEMY_H
 #define ENEMY_H
+
 #include "Sprite.h"
 #include <SDL.h>
 #include "Label.h"
 
 class Enemy : public gameEngine::Sprite {
 public:
+	static void setValue(int v);
 	Enemy(int x, int y, int w, int h);
 	~Enemy(void);
 	void tick();
-	static void setHealth(int h);
 	void checkIfHit();
-	static void setValue(int v);
 private:
-	static int const SPEED = 2;
-	static int const DAMAGE = 1;
-	static const int FINISHED = 5;
+	static const int SPEED;
+	static const int DAMAGE;
+	static const int FINAL_CHECKPOINT;
 	static int value;
-	int health;
-	int nextCp;
-	gameEngine::Label* healthLabel;
 	void move();
+	int health;
+	/* The next Checkpoint which the Enemy should move towards. */
+	int nextCp;
+	/* A Label displaying the current health of the Enemy. */
+	gameEngine::Label* healthLabel;
 };
 
 #endif

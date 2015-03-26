@@ -1,0 +1,27 @@
+﻿Build started 2015-03-26 12:51:26.
+     1>Project "C:\Users\Jonathan\Documents\GitHub\jonte790-game-engine\Sdl1\Sdl1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SDL2_ttf-2.0.12\include" /I"C:\SDL2-2.0.3\include" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameHandler.cpp
+         GameHandler.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jonathan\Documents\GitHub\jonte790-game-engine\Debug\Sdl1.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SDL2_ttf-2.0.12\lib\x86" /LIBPATH:"C:\SDL2-2.0.3\lib\x86" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib SDL2.lib SDL2main.lib SDL2_ttf.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jonathan\Documents\GitHub\jonte790-game-engine\Debug\Sdl1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jonathan\Documents\GitHub\jonte790-game-engine\Debug\Sdl1.lib" /MACHINE:X86 Debug\AdvancedTower.obj
+         Debug\BasicTower.obj
+         Debug\Builder.obj
+         Debug\Checkpoint.obj
+         Debug\Enemy.obj
+         Debug\GameHandler.obj
+         Debug\G_Button.obj
+         Debug\Label.obj
+         Debug\Main.obj
+         Debug\Projectile.obj
+         Debug\Rect.obj
+         Debug\Spawner.obj
+         Debug\Sprite.obj
+         Debug\GameEngine.obj
+         Debug\Tower.obj
+         Sdl1.vcxproj -> C:\Users\Jonathan\Documents\GitHub\jonte790-game-engine\Debug\Sdl1.exe
+     1>Done Building Project "C:\Users\Jonathan\Documents\GitHub\jonte790-game-engine\Sdl1\Sdl1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.22

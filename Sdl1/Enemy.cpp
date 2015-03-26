@@ -10,6 +10,12 @@
 using namespace std;
 using namespace gameEngine;
 
+
+int Enemy::value;
+const int Enemy::SPEED = 2;
+const int Enemy::DAMAGE = 1;
+const int Enemy::FINAL_CHECKPOINT = 4;
+
 Enemy::Enemy(int x, int y, int w, int h) : 
 Sprite(x, y, w, h, "../images/enemy2.bmp", true), nextCp(1)
 {
@@ -18,8 +24,18 @@ Sprite(x, y, w, h, "../images/enemy2.bmp", true), nextCp(1)
 	ge().add(healthLabel);
 }
 
-int Enemy::value;
+Enemy::~Enemy(void)
+{
+	ge().remove(healthLabel);
+	delete healthLabel;
+	ge().remove(this);
+}
 
+/* The difference between this instance's position and the next checkpoint's
+position is calculated and then the x and y values are adjusted in accordance
+to move the instance closer to the next checkpoint. When there is no difference
+between the position and the next checkpoint, that means the checkpoint has been 
+reached, and the nextCp variable can be incremented. */
 void Enemy::move() {
 	int xDiff = rect.centeredX() - gh.checkpoints[nextCp].x;
 	int yDiff = rect.centeredY() - gh.checkpoints[nextCp].y;
@@ -48,7 +64,7 @@ void Enemy::move() {
 }
 
 void Enemy::tick() {
-	if (nextCp == 5) {
+	if (nextCp == FINAL_CHECKPOINT + 1) {		// Has the last checkpoint been reached?
 		gh.decreaseLives(DAMAGE);
 		delete this;
 		return;
@@ -69,8 +85,8 @@ void Enemy::checkIfHit() {
 	while (it != gh.projectiles.end()) {
 		if ((*it)->rect.overlaps(rect)) {
 			ge().remove(*it);
-			it = gh.projectiles.erase(it);
-			health -= (*it)->damage;
+			it = gh.removeProjectile(*it);
+			health -= (*it)->getDamage();
 		}
 		else {
 			++it;
@@ -87,9 +103,3 @@ void Enemy::setValue(int v) {
 	value = v;
 }
 
-Enemy::~Enemy(void)
-{
-	ge().remove(healthLabel);
-	delete healthLabel;
-	ge().remove(this);
-}

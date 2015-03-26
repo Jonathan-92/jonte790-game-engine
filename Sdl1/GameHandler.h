@@ -13,19 +13,32 @@
 class GameHandler
 {
 public:
-	GameHandler();
+	// The checkpoints which spawned enemies will walk through
 	static const Checkpoint checkpoints[5];
-	std::vector<Projectile*> projectiles;
+	
+	GameHandler();
+	~GameHandler();
+
 	int getGold() const;
 	int getLives() const;
 	int getLevel() const;
+
+	// Decreases gold by specified amount
 	void decreaseGold(int amount);
+
+	// Increases gold by speficied amount
 	void increaseGold(int amount);
+
+	// Decreases lives by amount. If lives == 0, display lose message
 	void decreaseLives(int amount);
+
 	void setNextLevel();
 	void addProjectile(Projectile* projectile);
-	void removeProjectile(Projectile* p);
-	~GameHandler();
+	std::vector<Projectile*>::iterator removeProjectile(Projectile* p);
+
+	// Keeps track of the current projectiles that have been fired
+	std::vector<Projectile*> projectiles;
+
 	gameEngine::G_Button* startButton;
 private:
 	int gold;
@@ -33,6 +46,8 @@ private:
 	int level;
 };
 
+/* A global object is declared since the members of GameHandler will be used
+in many other scopes */
 extern GameHandler gh;
 
 #endif

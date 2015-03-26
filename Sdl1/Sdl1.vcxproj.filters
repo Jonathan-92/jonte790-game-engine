@@ -39,10 +39,25 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Source Files\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="AdvancedTower.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
     <ClCompile Include="BasicTower.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Builder.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Checkpoint.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
     <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameHandler.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
@@ -56,21 +71,6 @@
     </ClCompile>
     <ClCompile Include="Tower.cpp">
       <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Label.cpp">
-      <Filter>Source Files\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="AdvancedTower.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Checkpoint.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameHandler.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Builder.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +114,7 @@
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Builder.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

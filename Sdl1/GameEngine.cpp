@@ -59,8 +59,8 @@ namespace gameEngine {
 		SDL_SetWindowSize(screen, w, h);
 	}
 
-	void GameEngine::setFps(int i) {
-		fps = i;
+	void GameEngine::setFps(int fps) {
+		this->fps = fps;
 	}
 
 	void GameEngine::setBackground(const char* path) {
@@ -72,7 +72,12 @@ namespace gameEngine {
 	}
 
 	void GameEngine::run() {
-		SDL_Surface* bgSurface = SDL_LoadBMP(bgPath.c_str());	// undantagshantering?
+		SDL_Surface* bgSurface = SDL_LoadBMP(bgPath.c_str());
+
+		if (bgSurface == nullptr) {
+			throwException("Failed to load background image", SDL_GetError);
+		}
+
 		SDL_Texture* bgTexture = SDL_CreateTextureFromSurface(renderer, bgSurface);
 		SDL_FreeSurface(bgSurface);
 

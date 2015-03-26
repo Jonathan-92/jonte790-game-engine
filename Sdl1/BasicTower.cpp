@@ -3,10 +3,12 @@
 #include "Spawner.h"
 #include "GameEngine.h"
 #include "Tower.h"
-
 #include "GameHandler.h"
 
 using namespace gameEngine;
+
+
+const int BasicTower::goldCost = 5;
 
 BasicTower::BasicTower(int x, int y, int w, int h) : 
 Tower(x, y, w, h, "../images/basic_tower.bmp", "../images/projectile.bmp")
@@ -15,8 +17,7 @@ Tower(x, y, w, h, "../images/basic_tower.bmp", "../images/projectile.bmp")
 	speed = 2;
 }
 
-const int BasicTower::goldCost = 5;
-
 BasicTower::~BasicTower()
 {
 }
+

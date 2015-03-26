@@ -18,7 +18,6 @@ public:
 	void start();
 private:
 	Spawner();
-	SDL_TimerID myTimerID;
 	Uint32 startTimer;
 	bool started;
 	int enemiesSpawned;

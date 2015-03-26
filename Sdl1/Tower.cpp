@@ -14,6 +14,10 @@ Tower::Tower(int x, int y, int w, int h, std::string imgPath,
 	startTimer = SDL_GetTicks();
 }
 
+Tower::~Tower(void)
+{
+}
+
 void Tower::mousePressed(int x, int y) {
 	Uint32 end = SDL_GetTicks();
 	Uint32 elapsed = end - startTimer;
@@ -24,6 +28,10 @@ void Tower::mousePressed(int x, int y) {
 	}
 }
 
-Tower::~Tower(void)
-{
+int Tower::getDamage() const {
+	return damage;
+}
+
+int Tower::getSpeed() const {
+	return speed;
 }
