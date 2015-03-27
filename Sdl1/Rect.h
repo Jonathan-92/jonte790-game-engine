@@ -1,5 +1,6 @@
 #ifndef RECT_H
 #define RECT_H
+
 #include <SDL.h>
 
 namespace gameEngine {

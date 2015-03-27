@@ -28,12 +28,12 @@ namespace gameEngine {
 		if (font == nullptr)
 			throwException("Failed to open font.", TTF_GetError);
 
-		screen = SDL_CreateWindow("My Game", SDL_WINDOWPOS_CENTERED,
+		window = SDL_CreateWindow("My Game", SDL_WINDOWPOS_CENTERED,
 			20, 800, 600, SDL_WINDOW_OPENGL);
-		if (screen == nullptr)
+		if (window == nullptr)
 			throwException("Failed creating window.", SDL_GetError);
 
-		renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED);
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		if (renderer == nullptr)
 			throwException("Failed creating renderer.", SDL_GetError);
 	}
@@ -43,7 +43,7 @@ namespace gameEngine {
 		TTF_CloseFont(font);
 		TTF_Quit();
 		SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(screen);
+		SDL_DestroyWindow(window);
 		SDL_Quit();
 	}
 	
@@ -56,7 +56,7 @@ namespace gameEngine {
 	}
 
 	void GameEngine::setVideoMode(int w, int h) {
-		SDL_SetWindowSize(screen, w, h);
+		SDL_SetWindowSize(window, w, h);
 	}
 
 	void GameEngine::setFps(int fps) {

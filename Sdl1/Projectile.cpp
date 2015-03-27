@@ -29,6 +29,10 @@ Projectile::~Projectile(void)
 	gh.removeProjectile(this);
 }
 
+int Projectile::getDamage() const {
+	return damage;
+}
+
 void Projectile::tick() {
 	rect.x += speedX;
 	rect.y += speedY;
@@ -39,6 +43,3 @@ void Projectile::tick() {
 	}
 }
 
-int Projectile::getDamage() const {
-	return damage;
-}

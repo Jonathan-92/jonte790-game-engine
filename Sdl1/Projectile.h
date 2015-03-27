@@ -7,8 +7,8 @@ class Projectile : public gameEngine::Sprite {
 public:
 	Projectile(Tower* t, int targetX, int targetY);
 	~Projectile(void);
-	void tick();
 	int getDamage() const;
+	void tick();
 private:
 	static const int width;
 	static const int height;

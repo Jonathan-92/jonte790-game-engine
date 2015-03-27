@@ -1,3 +1,4 @@
+#include <iostream>
 #include "GameHandler.h"
 #include <string>
 #include "GameEngine.h"
@@ -10,6 +11,10 @@ using namespace gameEngine;
 using namespace std;
 
 GameHandler::GameHandler() : lives(10), level(0), gold(8)
+{
+}
+
+GameHandler::~GameHandler()
 {
 }
 
@@ -26,9 +31,20 @@ void GameHandler::addProjectile(Projectile* projectile) {
 	projectiles.push_back(projectile);
 }
 
-vector<Projectile*>::iterator GameHandler::removeProjectile(Projectile* p) {
-	return projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), p), 
+void GameHandler::removeProjectile(Projectile* p) {
+	projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), p), 
 		projectiles.end());
+	std::cout << projectiles.size() << std::endl;
+}
+
+Projectile* GameHandler::overlaps(Enemy* enemy) {
+	for (vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); ++it) {
+		if ((*it)->rect.overlaps(enemy->rect)) {
+			return *it;
+		}
+	}
+
+	return nullptr;
 }
 
 int GameHandler::getGold() const {
@@ -68,10 +84,6 @@ void GameHandler::decreaseLives(int amount)
 void GameHandler::setNextLevel() 
 {
 	++level;
-}
-
-GameHandler::~GameHandler()
-{
 }
 
 GameHandler gh;

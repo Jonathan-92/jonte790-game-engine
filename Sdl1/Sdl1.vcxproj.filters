@@ -119,5 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\to do.txt" />
+    <Text Include="..\instruktioner.txt" />
   </ItemGroup>
 </Project>

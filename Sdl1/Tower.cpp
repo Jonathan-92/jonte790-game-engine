@@ -5,6 +5,7 @@
 #include "Spawner.h"
 #include "GameHandler.h"
 #include <string>
+#include <iostream>
 
 using namespace gameEngine;
 
@@ -25,6 +26,7 @@ void Tower::mousePressed(int x, int y) {
 	if (elapsed > 150) {
 		gh.addProjectile(new Projectile(this, x, y));
 		startTimer = end;
+		//std::cout << "pew pew " << gh.projectiles.size() << std::endl;
 	}
 }
 

@@ -80,17 +80,12 @@ void Enemy::tick() {
 }
 
 void Enemy::checkIfHit() {
-	std::vector<Projectile*>::iterator it = gh.projectiles.begin();
+	Projectile* projectile = gh.overlaps(this);
 
-	while (it != gh.projectiles.end()) {
-		if ((*it)->rect.overlaps(rect)) {
-			ge().remove(*it);
-			it = gh.removeProjectile(*it);
-			health -= (*it)->getDamage();
-		}
-		else {
-			++it;
-		}
+	if (projectile != nullptr) {
+		ge().remove(projectile);
+		gh.removeProjectile(projectile);
+		health -= (projectile)->getDamage();
 	}
 
 	if (health < 1) {

@@ -2,4 +2,5 @@ Mål: Förhindra fiender att ta sig från början till slutet av banan genom att skj
 
 - Bygg torn genom att klicka på ikonerna i bottenpanelen eller använda tangenterna Q eller W
 - Klicka på Start-knappen för att spawna fiender
+- Skjut genom att hålla inne musknappen åt det håll du vill skjuta.
 - När dina 10 liv är slut är spelet över.

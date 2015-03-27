@@ -5,7 +5,7 @@
 #include <vector>
 #include "Projectile.h"
 #include "G_Button.h"
-
+#include "Enemy.h"
 
 //Stores values and objects related to the game and makes them 
 //globally available to other classes in the game, with certain
@@ -34,13 +34,17 @@ public:
 
 	void setNextLevel();
 	void addProjectile(Projectile* projectile);
-	std::vector<Projectile*>::iterator removeProjectile(Projectile* p);
+	void removeProjectile(Projectile* p);
 
-	// Keeps track of the current projectiles that have been fired
-	std::vector<Projectile*> projectiles;
+	/* Checks whether any of the Projectiles in projectiles overlaps with
+	enemy. If one Projectile does, that Projectile is returned, else nullptr*/
+	Projectile* overlaps(Enemy* enemy);
 
 	gameEngine::G_Button* startButton;
 private:
+	// Keeps track of the current projectiles that have been fired
+	std::vector<Projectile*> projectiles;
+
 	int gold;
 	int lives;
 	int level;
