@@ -1,17 +1,25 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
+
 #include "Sprite.h"
 #include <list>
 #include "SDL_ttf.h"
 
 namespace gameEngine {
 
+	/* Essentially runs the game loop and stores all Sprites in the game. It 
+	also contains the SDL components like the Window and Renderer. */
 	class GameEngine {
 	public:
+		/* Initializes all SDL components. If something fails, an exception
+		is thrown. */
 		GameEngine();
+
 		~GameEngine();
 
-		/* Starts the game loop */
+		/* Starts the game loop, which loops through all Sprites which are 
+		drawn on the screen and also their tick() function is called. The
+		loop also checks for user events. */
 		void run();
 
 		/* Adds a Sprite to the game. 
@@ -24,22 +32,18 @@ namespace gameEngine {
 		param "sprite" = a pointer to the Sprite that should be removed. */
 		void remove(Sprite* sprite);
 
-		/* 
-		Sets the background image of the game. This needs to be done
+		/* Sets the background image of the game. This needs to be done
 		before the run() function is called 
 		
 		param "path" = the path to the image desired as a background image.
-		This needs to be a .bmp file.
-		*/
+		This needs to be a .bmp file. */
 		void setBackground(const char* path);
 
-		/* 
-		Sets the width and height of the game window. This needs to be done
+		/* Sets the width and height of the game window. This needs to be done
 		before the run() function is called.
 
 		param "w" = the desired width of the window in pixels
-		param "h" = the desired height  of the window in pixels 
-		*/
+		param "h" = the desired height  of the window in pixels */
 		void setVideoMode(int w, int h);
 
 		/* Sets the frames per second that the game should operate with.
@@ -47,7 +51,6 @@ namespace gameEngine {
 		param "fps" = the frames per second. */
 		void setFps(int fps);
 
-		std::list<Sprite*> getSprites() const;
 		SDL_Renderer* getRenderer() const;
 		TTF_Font* getFont() const;
 	private:

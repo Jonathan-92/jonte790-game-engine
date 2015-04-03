@@ -1,4 +1,3 @@
-#include <iostream>
 #include "GameHandler.h"
 #include <string>
 #include "GameEngine.h"
@@ -6,12 +5,24 @@
 #include <algorithm>
 #include "Label.h"
 #include <sstream>
+#include "Spawner.h"
 
 using namespace gameEngine;
 using namespace std;
 
+Spawner* spawner;
+
+void start() {
+	spawner->start();
+}
+
 GameHandler::GameHandler() : lives(10), level(0), gold(8)
 {
+	spawner = Spawner::getInstance();
+	ge().add(spawner);
+
+	gh.startButton = new G_Button(5, 705, 90, 40, "../images/startButton.bmp", start);
+	ge().add(gh.startButton);
 }
 
 GameHandler::~GameHandler()
@@ -19,7 +30,7 @@ GameHandler::~GameHandler()
 }
 
 const Checkpoint GameHandler::checkpoints[5] = {
-	Checkpoint(-50, 150),
+	Checkpoint(-64, 150),
 	Checkpoint(650, 150),
 	Checkpoint(650, 350),
 	Checkpoint(350, 350),
@@ -31,10 +42,9 @@ void GameHandler::addProjectile(Projectile* projectile) {
 	projectiles.push_back(projectile);
 }
 
-void GameHandler::removeProjectile(Projectile* p) {
-	projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), p), 
+void GameHandler::removeProjectile(Projectile* projectile) {
+	projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), projectile), 
 		projectiles.end());
-	std::cout << projectiles.size() << std::endl;
 }
 
 Projectile* GameHandler::overlaps(Enemy* enemy) {
@@ -71,6 +81,8 @@ void GameHandler::increaseGold(int amount) {
 
 void GameHandler::decreaseLives(int amount) 
 {
+	/* If lives has reached 0, display lose message and prohibit the player 
+	form continuing playing. */
 	if ((lives -= amount) < 1) {
 		string msg = "YOU LOST. You reached level: ";
 		ostringstream os;
@@ -81,9 +93,14 @@ void GameHandler::decreaseLives(int amount)
 	}
 }
 
+bool GameHandler::affords(int goldCost) {
+	return gold >= goldCost;
+}
+
 void GameHandler::setNextLevel() 
 {
 	++level;
+	Enemy::setValue(pow(level, 2) / 3 + 1);
 }
 
 GameHandler gh;

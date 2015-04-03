@@ -9,29 +9,24 @@
 #include "GameHandler.h"
 #include "Builder.h"
 #include <iostream>
+#include "BasicTower.h"
+#include "AdvancedTower.h"
 
 using namespace gameEngine;
 using namespace std;
 
-Spawner* spawner;
 Builder* builder;
 
 void quit() {
 	exit(0);
 }
 
-void start() {
-	spawner->start();
-}
-
 void buildBasicTower() {
-	builder->building_tower &= 0U;
-	builder->building_tower |= BUILDING_BASIC;
+	builder->enableBuilding(BasicTower::goldCost, BUILDING_BASIC);
 }
 
 void buildAdvancedTower() {
-	builder->building_tower &= 0U;
-	builder->building_tower |= BUILDING_ADVANCED;
+	builder->enableBuilding(AdvancedTower::goldCost, BUILDING_ADVANCED);
 }
 
 string updateLabel(int value, string label) {
@@ -66,7 +61,7 @@ void addLabels()
 	Label* basicTowerLabel = Label::getInstance(105, 705, 200, 25, "Build  Basic Tower (5 gold): ");
 	ge().add(basicTowerLabel);
 
-	Label* advancedTowerLabel = Label::getInstance(375, 705, 200, 25, "Build  Advanced Tower (10 gold): ");
+	Label* advancedTowerLabel = Label::getInstance(375, 705, 230, 25, "Build  Advanced Tower (10 gold): ");
 	ge().add(advancedTowerLabel);
 }
 
@@ -78,23 +73,18 @@ void addButtons()
 	G_Button* advancedTowerButton = new G_Button(375, 730, 50, 50, "../images/advanced_tower.bmp", buildAdvancedTower);
 	ge().add(advancedTowerButton);
 
-	gh.startButton = new G_Button(5, 705, 75, 25, "../images/startButton.bmp", start);
-	ge().add(gh.startButton);
-
-	G_Button* quitButton = new G_Button(5, 755, 75, 25, "../images/quitButton.bmp", quit);
+	G_Button* quitButton = new G_Button(5, 755, 90, 40, "../images/quitButton.bmp", quit);
 	ge().add(quitButton);
 }
 
 int main(int argc, char** argv) {
 	try {
-		spawner = Spawner::getInstance();
 		builder = Builder::getInstance();
 
 		ge().setVideoMode(900, 800);
 		ge().setBackground("../images/map.bmp");
 		ge().setFps(100);
 
-		ge().add(spawner);
 		ge().add(builder);
 		addLabels();
 		addButtons();

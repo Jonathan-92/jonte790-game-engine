@@ -4,8 +4,8 @@ To do:
 - Gold cost?
 
 Must do:
-- fixa minnesläckage
-- fixa synlighet på medlemmarna
-- lägg till null checkar
+- fixa minnesläckage (typ klar) 
+- fixa synlighet på medlemmarna (klar tror jag)
+- lägg till null checkar 
 - lägg till const där det ska vara const (funktioner, data, iterator)
 - kommentarer / dokumentation

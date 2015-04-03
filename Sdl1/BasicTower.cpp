@@ -1,12 +1,4 @@
 #include "BasicTower.h"
-#include "Projectile.h"
-#include "Spawner.h"
-#include "GameEngine.h"
-#include "Tower.h"
-#include "GameHandler.h"
-
-using namespace gameEngine;
-
 
 const int BasicTower::goldCost = 5;
 

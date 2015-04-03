@@ -24,7 +24,7 @@ namespace gameEngine {
 		if (TTF_Init() == -1)
 			throwException("Failed initialize TTF", TTF_GetError);
 
-		font = TTF_OpenFont("C:/Windows/Fonts/arialbd.ttf", 12);
+		font = TTF_OpenFont("C:/Windows/Fonts/arialbd.ttf", 20);
 		if (font == nullptr)
 			throwException("Failed to open font.", TTF_GetError);
 
@@ -65,10 +65,6 @@ namespace gameEngine {
 
 	void GameEngine::setBackground(const char* path) {
 		bgPath = path;
-	}
-
-	std::list<Sprite*> GameEngine::getSprites() const {
-		return sprites;
 	}
 
 	void GameEngine::run() {

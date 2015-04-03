@@ -7,9 +7,9 @@ class BasicTower :
 	public Tower
 {
 public:
+	static const int goldCost;
 	BasicTower(int x, int y, int w, int h);
 	~BasicTower();
-	static const int goldCost;
 };
 
 #endif

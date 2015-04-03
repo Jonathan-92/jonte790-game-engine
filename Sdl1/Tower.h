@@ -11,7 +11,7 @@ public:
 	void mousePressed(int x, int y);
 	int getDamage() const;
 	int getSpeed() const;
-	std::string projImage;
+	std::string getProjImage() const;
 protected:
 	Tower(int x, int y, int w, int h, std::string imgPath, std::string projImage);
 	int damage;
@@ -19,7 +19,8 @@ protected:
 private:
 	Tower(const Tower&);
 	const Tower& operator=(const Tower&);
-	Uint32 startTimer;
+	Uint32 start;
+	std::string projImage; // Projectile image
 };
 
 

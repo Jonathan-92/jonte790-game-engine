@@ -10,11 +10,15 @@ public:
 	int getDamage() const;
 	void tick();
 private:
-	static const int width;
-	static const int height;
-	int xDistance, yDistance;
+	static const int WIDTH;
+	static const int HEIGHT;
+
+	/* The amount of pixels that this instance should move in x and y
+	respectively. */
 	int speedX, speedY;
-	int distance;
+
+	/* The amount of hitpoints this instance will take from an enemy when it
+	is hit. */
 	int damage;
 };
 

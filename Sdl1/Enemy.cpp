@@ -20,7 +20,7 @@ Enemy::Enemy(int x, int y, int w, int h) :
 Sprite(x, y, w, h, "../images/enemy2.bmp", true), nextCp(1)
 {
 	health = pow(gh.getLevel(), 2) * 3;
-	healthLabel = Label::getInstance(x + 50, y, 10, 10, to_string(health));
+	healthLabel = Label::getInstance(x + 75, y, 20, 20, to_string(health));
 	ge().add(healthLabel);
 }
 
@@ -64,7 +64,7 @@ void Enemy::move() {
 }
 
 void Enemy::tick() {
-	if (nextCp == FINAL_CHECKPOINT + 1) {		// Has the last checkpoint been reached?
+	if (nextCp == FINAL_CHECKPOINT + 1) { // Has the last checkpoint been reached?
 		gh.decreaseLives(DAMAGE);
 		delete this;
 		return;
@@ -79,6 +79,9 @@ void Enemy::tick() {
 	checkIfHit();
 }
 
+/* Checks whether any Projectile has hit this instance. If so, the projectile
+is removed and the health of this instance is decreased. If health has reached
+0, this instance is deleted and the player's gold is increased. */
 void Enemy::checkIfHit() {
 	Projectile* projectile = gh.overlaps(this);
 

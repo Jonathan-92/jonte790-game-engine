@@ -34,17 +34,17 @@ public:
 
 	void setNextLevel();
 	void addProjectile(Projectile* projectile);
-	void removeProjectile(Projectile* p);
+	void removeProjectile(Projectile* projectile);
+	bool affords(int goldCost);
 
-	/* Checks whether any of the Projectiles in projectiles overlaps with
+	/* Checks whether any of the Projectiles in projectiles overlaps with an 
 	enemy. If one Projectile does, that Projectile is returned, else nullptr*/
 	Projectile* overlaps(Enemy* enemy);
-
-	gameEngine::G_Button* startButton;
 private:
 	// Keeps track of the current projectiles that have been fired
 	std::vector<Projectile*> projectiles;
-
+	
+	gameEngine::G_Button* startButton;
 	int gold;
 	int lives;
 	int level;

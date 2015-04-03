@@ -5,11 +5,11 @@ namespace gameEngine {
 		x = y = h = w = 0; 
 	}
 
-	Rect::Rect(int xx, int yy, int ww, int hh){
+	Rect::Rect(int xx, int yy, int ww, int hh) {
 		x = xx; y = yy; w = ww; h = hh;
 	}
 
-	bool Rect::contains(int xx, int yy) const{
+	bool Rect::contains(int xx, int yy) const {
 		return xx >= x && xx <= x + w && yy >= y && yy <= y + h;
 	}
 
@@ -21,11 +21,11 @@ namespace gameEngine {
 		return y + h / 2;
 	}
 
-	Rect Rect::centeredRect(int width, int height) const{
+	Rect Rect::centeredRect(int width, int height) const {
 		return Rect(x + w/2 - width/2, y + h/2 - height/2, width, height);
 	}
 
-	bool Rect::overlaps(const Rect& other) const{
+	bool Rect::overlaps(const Rect& other) const {
 		int left1   = x;
 		int left2   = other.x;
 		int right1  = x + w;

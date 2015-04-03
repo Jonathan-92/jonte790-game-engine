@@ -9,7 +9,7 @@ namespace gameEngine {
 
 	Label::Label(int x, int y, int w, int h, string text, FuncPtr fp) :
 		Sprite(x, y, w, h, TTF_RenderText_Solid(ge().getFont(), text.c_str(), black)),
-		funcPtr(fp)
+		funcPtr(fp), text(text)
 	{
 	}
 
@@ -25,8 +25,13 @@ namespace gameEngine {
 			setText(funcPtr());
 	}
 
+	string Label::getText() {
+		return text;
+	}
+
 	void Label::setText(string text)
 	{
+		this->text = text;
 		SDL_DestroyTexture(texture);
 		SDL_Surface* surface = TTF_RenderText_Solid(ge().getFont(), text.c_str(), black);
 		texture = SDL_CreateTextureFromSurface(ge().getRenderer(), surface);
