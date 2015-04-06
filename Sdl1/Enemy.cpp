@@ -91,7 +91,7 @@ void Enemy::checkIfHit() {
 		health -= (projectile)->getDamage();
 	}
 
-	if (health < 1) {
+	if (health < 1) { // The Enemy has been eliminated
 		gh.increaseGold(value);
 		delete this;
 	}

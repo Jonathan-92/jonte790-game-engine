@@ -4,6 +4,7 @@ To do:
 - Gold cost?
 
 Must do:
+- G_BUTTON/LABEL dynamisk allokering
 - fixa minnesläckage (typ klar) 
 - fixa synlighet på medlemmarna (klar tror jag)
 - lägg till null checkar 

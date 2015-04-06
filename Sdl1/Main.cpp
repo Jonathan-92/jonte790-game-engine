@@ -67,13 +67,13 @@ void addLabels()
 
 void addButtons()
 {
-	G_Button* basicTowerButton = new G_Button(105, 730, 50, 50, "../images/basic_tower.bmp", buildBasicTower);
+	G_Button* basicTowerButton = G_Button::getInstance(105, 730, 50, 50, "../images/basic_tower.bmp", buildBasicTower);
 	ge().add(basicTowerButton);
 
-	G_Button* advancedTowerButton = new G_Button(375, 730, 50, 50, "../images/advanced_tower.bmp", buildAdvancedTower);
+	G_Button* advancedTowerButton = G_Button::getInstance(375, 730, 50, 50, "../images/advanced_tower.bmp", buildAdvancedTower);
 	ge().add(advancedTowerButton);
 
-	G_Button* quitButton = new G_Button(5, 755, 90, 40, "../images/quitButton.bmp", quit);
+	G_Button* quitButton = G_Button::getInstance(5, 755, 90, 40, "../images/quitButton.bmp", quit);
 	ge().add(quitButton);
 }
 

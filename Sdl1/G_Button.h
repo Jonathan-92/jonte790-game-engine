@@ -13,7 +13,19 @@ namespace gameEngine {
 		/* A name for a function pointer is defined for easier reference. */
 		typedef void(*FuncPtr)();
 		
-		/* 
+		/* Protected constructor (allow subclasses) and public getInstance 
+		method to only allow dynamic instantiation of this class. */
+		static G_Button* getInstance(int x, int y, int w, int h, std::string imgPath, 
+			FuncPtr fp);
+
+		~G_Button(void);
+		void tick();
+		void mouseDown(int x, int y);
+		
+		/* Disables this button */
+		void disable();
+	protected:
+		/*
 		param "x" = the x coordinate
 		param "y" = the y coordinate
 		param "w" = the width
@@ -23,13 +35,6 @@ namespace gameEngine {
 		call when it is clicked
 		*/
 		G_Button(int x, int y, int w, int h, std::string imgPath, FuncPtr fp);
-		
-		~G_Button(void);
-		void tick();
-		void mouseDown(int x, int y);
-		
-		/* Disables this button */
-		void disable();
 	private:
 		FuncPtr funcPtr;
 		bool enabled;

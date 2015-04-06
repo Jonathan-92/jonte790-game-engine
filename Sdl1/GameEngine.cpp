@@ -119,8 +119,10 @@ namespace gameEngine {
 				forAll(&Sprite::mousePressed, event.button.x, event.button.y);
 			}
 
-			for (itTick = sprites.begin(); itTick != sprites.end(); itTick++) {
+			for (itTick = sprites.begin(); itTick != sprites.end(); ++itTick) {
 				(*itTick)->tick();
+				if (itTick == sprites.end())
+					break;
 			}
 
 			SDL_RenderPresent(renderer);

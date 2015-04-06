@@ -54,6 +54,16 @@ namespace gameEngine {
 		SDL_Renderer* getRenderer() const;
 		TTF_Font* getFont() const;
 	private:
+		/* This function is used when a mouseButton event has occured. The
+		appropriate member function of Sprite is passed, as well as the mouse
+		x and y value.
+
+		param "membrPtr" = A pointer to a function which is a member of Sprite
+		and which takes two integers as arguments and returns void.
+		param "x" = The x value of the mouse position
+		param "y" = The y value of the mouse position */
+		void forAll(void (Sprite::*membrPtr)(int, int), int x, int y); 
+
 		SDL_Window* window;
 		SDL_Renderer* renderer;
 		TTF_Font* font;
@@ -72,15 +82,7 @@ namespace gameEngine {
 		/* An iterator that will be used when removing elements while iterating */
 		std::list<Sprite*>::iterator itTick;
 
-		/* This function is used when a mouseButton event has occured. The 
-		appropriate member function of Sprite is passed, as well as the mouse
-		x and y value.
-		
-		param "membrPtr" = A pointer to a function which is a member of Sprite 
-		and which takes two integers as arguments and returns void.
-		param "x" = The x value of the mouse position
-		param "y" = The y value of the mouse position */
-		void forAll(void (Sprite::*membrPtr)(int, int), int x, int y);
+		bool erased;
 	};
 
 	/* A globally declared instance which makes use of the game engine's

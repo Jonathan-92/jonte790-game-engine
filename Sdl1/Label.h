@@ -14,9 +14,12 @@ namespace gameEngine {
 		/* A name for a function pointer is defined for easier reference. */
 		typedef std::string (*FuncPtr)();
 
+		/* Protected constructors (allow subclasses) and public getInstance 
+		methods to only allow dynamic instantiation of this class. */
 		static Label* getInstance(int x, int y, int w, int h, std::string text, 
 			FuncPtr fp);
 		static Label* getInstance(int x, int y, int w, int h, std::string text);
+
 		void tick(); // Inherited from Sprite
 		std::string getText();
 		void setText(std::string text);

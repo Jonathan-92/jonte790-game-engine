@@ -21,7 +21,7 @@ GameHandler::GameHandler() : lives(10), level(0), gold(8)
 	spawner = Spawner::getInstance();
 	ge().add(spawner);
 
-	gh.startButton = new G_Button(5, 705, 90, 40, "../images/startButton.bmp", start);
+	gh.startButton = G_Button::getInstance(5, 705, 90, 40, "../images/startButton.bmp", start);
 	ge().add(gh.startButton);
 }
 

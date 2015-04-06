@@ -83,10 +83,18 @@ bool Builder::withinBuildableArea(int x, int y) const {
 }
 
 bool Builder::buildingBasic() const {
+	// If building_tower is 0x00000001U, this expression will result in
+	// 0x00000001U AND 0x00000001U, which is true. building_tower can be
+	// either 0x00000000U, 0x00000001U, or 0x00000002U depending on if a tower
+	// is selected for construction and which tower it is.
 	return BUILDING_BASIC & building_tower;
 }
 
 bool Builder::buildingAdvanced() const {
+	// If building_tower is 0x00000001U, this expression will result in
+	// 0x00000002U AND 0x00000002U, which is true. building_tower can be
+	// either 0x00000000U, 0x00000001U, or 0x00000002U depending on if a tower
+	// is selected for construction and which tower it is.
 	return BUILDING_ADVANCED & building_tower;
 }
 
@@ -102,13 +110,13 @@ void Builder::mouseDown(int x, int y) {
 		if (buildingBasic()) {
 			t = new BasicTower(rect.x, rect.y, rect.w, rect.h);
 
-			building_tower = 0U; // Tower placed. Reset bit-mask. 
+			building_tower = 0U; // Tower built. Reset bit-mask. 
 			gh.decreaseGold(BasicTower::goldCost);
 		}
 		else if (buildingAdvanced()) {
 			t = new AdvancedTower(rect.x, rect.y, rect.w, rect.h);
 
-			building_tower = 0U; // Tower placed. Reset bit-mask. 
+			building_tower = 0U; // Tower built. Reset bit-mask. 
 			gh.decreaseGold(AdvancedTower::goldCost);
 		}
 		else {
